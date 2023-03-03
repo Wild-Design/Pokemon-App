@@ -1,0 +1,7 @@
+Para acceder a las imagenes:
+.sprites.other["official-artwork"]["front_default"]
+.sprites.other["official-artwork"]["front_shiny"]
+
+
+Para el tipo de pokemon hay que entrar a .types que es un array de objetos y hacer un map y seleccionar los type.name
+
