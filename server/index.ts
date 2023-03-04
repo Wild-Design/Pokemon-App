@@ -1,5 +1,6 @@
 import express, { Express, Request, Response } from "express";
 import db from "./src/db"; //importo la base de datos junto con los modelos (Pokemon y Tipo)
+const { DATA_BASE } = db;
 const morgan = require("morgan");
 require("dotenv").config();
 
@@ -14,7 +15,7 @@ server.use(TypesRouter);
 
 const { PORT } = process.env;
 
-db.DATA_BASE.sync().then(() =>
+DATA_BASE.sync().then(() =>
   server.listen(PORT, () => {
     console.log(`Servidor corriendo en el puerto ${PORT}`);
   })
