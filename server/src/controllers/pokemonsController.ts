@@ -2,7 +2,7 @@ import axios from "axios";
 import { Request, Response } from "express";
 import { AxiosResponse } from "axios"; //esto lo traje para que ande el coso
 import db from "../db";
-const { Pokemon } = db;
+const { Pokemon, Tipo } = db;
 
 interface Url {
   url: string;
@@ -57,7 +57,7 @@ export const getAllPokemons = async (req: Request, res: Response) => {
       });
     }
 
-    const POKE_DB = await Pokemon.findAll();
+    const POKE_DB = await Pokemon.findAll({ include: [Tipo] });
 
     const ALL_POKEMONS = [...POKE_API, ...POKE_DB];
 
@@ -67,9 +67,46 @@ export const getAllPokemons = async (req: Request, res: Response) => {
       );
       return res.status(200).send(filter);
     } else {
-      res.status(200).send(ALL_POKEMONS);
+      return res.status(200).send(ALL_POKEMONS);
     }
   } catch (error: any) {
-    res.status(400).send(error.message);
+    res.status(400).send({ error: error.message });
+  }
+};
+
+export const getPokemonDetail = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  try {
+    const API = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`);
+    const RESULT = API.data;
+    const POKE_API_DETAIL: any = {
+      id: RESULT.id,
+      nombre: RESULT.name,
+      imagen: [
+        RESULT.sprites.other["official-artwork"]["front_default"],
+        RESULT.sprites.other["official-artwork"]["front_shiny"],
+      ],
+      tipos: RESULT.types.map((tipo: any) => tipo.type.name),
+      vida: RESULT.stats[0]["base_stat"],
+      ataque: RESULT.stats[1]["base_stat"],
+      defensa: RESULT.stats[2]["base_stat"],
+      velocidad: RESULT.stats[3]["base_stat"],
+      altura: RESULT.height,
+      peso: RESULT.weight,
+    };
+
+    console.log(typeof id);
+
+    res.send("coso");
+
+    // if (typeof id === "number") {
+    //   return res.status(200).send(POKE_API_DETAIL);
+    // }
+    // else {
+    //   const POKE_DB_DETAIL: any = await Pokemon.findByPk(id);
+    //   return res.status(200).send(POKE_DB_DETAIL);
+    // }
+  } catch (error: any) {
+    return res.status(400).send({ error: error.message });
   }
 };
