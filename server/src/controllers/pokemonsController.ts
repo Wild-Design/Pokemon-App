@@ -25,7 +25,7 @@ export const getAllPokemons = async (req: Request, res: Response) => {
   const { name } = req.query;
 
   try {
-    const API = await axios.get("https://pokeapi.co/api/v2/pokemon?limit=40");
+    const API = await axios.get("https://pokeapi.co/api/v2/pokemon?limit=50");
     const DATA = API.data.results;
 
     const promises: Promise<AxiosResponse<any, any>>[] = [];
@@ -62,10 +62,42 @@ export const getAllPokemons = async (req: Request, res: Response) => {
     const ALL_POKEMONS = [...POKE_API, ...POKE_DB];
 
     if (name) {
-      const filter = ALL_POKEMONS.filter((pokemon) =>
-        pokemon.nombre.includes(name)
-      );
-      return res.status(200).send(filter);
+      //...............................................................................
+      try {
+        const POKE_API = await axios.get(
+          `https://pokeapi.co/api/v2/pokemon/${name}`
+        );
+        const POKES = POKE_API.data;
+
+        const RESULTS = [POKES].map((poke: any): PokeFormat => {
+          return {
+            id: poke.id,
+            nombre: poke.name,
+            imagen: [
+              poke.sprites.other["official-artwork"]["front_default"],
+              poke.sprites.other["official-artwork"]["front_shiny"],
+            ],
+            tipos: poke.types.map((tipo: any) => tipo.type.name),
+            vida: poke.stats[0]["base_stat"],
+            ataque: poke.stats[1]["base_stat"],
+            defensa: poke.stats[2]["base_stat"],
+            velocidad: poke.stats[3]["base_stat"],
+            altura: poke.height,
+            peso: poke.weight,
+          };
+        });
+
+        return res.status(200).send(RESULTS);
+      } catch (error: any) {
+        if (error) {
+          const DB = await Pokemon.findAll();
+          const filter = DB.filter((pokemon: any) =>
+            pokemon.nombre.includes(name)
+          );
+          return res.status(200).send(filter);
+        }
+      }
+      //...............................................................................
     } else {
       return res.status(200).send(ALL_POKEMONS);
     }
@@ -80,7 +112,7 @@ export const getPokemonDetail = async (req: Request, res: Response) => {
     if (id.length <= 10) {
       const API = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`);
       const RESULT = API.data;
-      const POKE_API_DETAIL: any = {
+      const POKE_API_DETAIL: PokeFormat = {
         id: RESULT.id,
         nombre: RESULT.name,
         imagen: [
@@ -97,10 +129,10 @@ export const getPokemonDetail = async (req: Request, res: Response) => {
       };
       return res.status(200).send(POKE_API_DETAIL);
     } else {
-      const POKE_DB_DETAIL: any = await Pokemon.findByPk(id);
+      const POKE_DB_DETAIL: PokeFormat = await Pokemon.findByPk(id);
       return res.status(200).send(POKE_DB_DETAIL);
     }
   } catch (error: any) {
-    return res.status(400).send({ error: error.message });
+    return res.status(404).send({ error: error.message });
   }
 };
