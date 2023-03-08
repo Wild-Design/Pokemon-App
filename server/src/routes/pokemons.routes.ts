@@ -1,8 +1,13 @@
 import { Router } from "express";
-import { getAllPokemons, getPokemonDetail } from "../controllers/pokemonsController";
+import {
+  getAllPokemons,
+  getPokemonDetail,
+  postPokemon,
+} from "../controllers/pokemonsController";
 const pokemonsRouter = Router();
 
-pokemonsRouter.get("/pokemon", getAllPokemons);
-pokemonsRouter.get("/pokemon/:id", getPokemonDetail);
+pokemonsRouter.get("/pokemons", getAllPokemons);
+pokemonsRouter.get("/pokemons/:id", getPokemonDetail);
+pokemonsRouter.post("/pokemons", postPokemon);
 
 module.exports = pokemonsRouter;
