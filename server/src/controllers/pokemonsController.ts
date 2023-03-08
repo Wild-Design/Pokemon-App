@@ -10,7 +10,7 @@ interface Url {
 interface PokeFormat {
   id: number;
   nombre: string;
-  imagen: [string, string];
+  imagen?: [string, string];
   tipos: [];
   vida: number;
   ataque: number;
@@ -57,9 +57,27 @@ export const getAllPokemons = async (req: Request, res: Response) => {
       });
     }
 
-    const POKE_DB = await Pokemon.findAll({ include: [Tipo] });
+    const POKE_DB = await Pokemon.findAll({ include: { model: Tipo } });
 
-    const ALL_POKEMONS = [...POKE_API, ...POKE_DB];
+    const POKE_FILTER = POKE_DB.map((pokemon: any) => {
+      return {
+        id: pokemon.id,
+        nombre: pokemon.nombre,
+        imagen: pokemon.imagen,
+        tipos: pokemon.Tipos.length
+          ? pokemon.Tipos.map((tipo: any) => tipo.nombre)
+          : pokemon.Tipos,
+        vida: pokemon.vida,
+        ataque: pokemon.ataque,
+        defensa: pokemon.defensa,
+        velocidad: pokemon.velocidad,
+        altura: pokemon.altura,
+        peso: pokemon.peso,
+        db: pokemon.db,
+      };
+    });
+
+    const ALL_POKEMONS = [...POKE_API, ...POKE_FILTER];
 
     if (name) {
       //...............................................................................
@@ -90,11 +108,28 @@ export const getAllPokemons = async (req: Request, res: Response) => {
         return res.status(200).send(RESULTS);
       } catch (error: any) {
         if (error) {
-          const DB = await Pokemon.findAll();
+          const DB = await Pokemon.findAll({ include: { model: Tipo } });
           const filter = DB.filter((pokemon: any) =>
             pokemon.nombre.includes(name)
           );
-          return res.status(200).send(filter);
+
+          const RESULTS = filter.map((poke: any): PokeFormat => {
+            return {
+              id: poke.id,
+              nombre: poke.nombre,
+              imagen: poke.imagen,
+              tipos: poke.Tipos.map((tipo: any) => tipo.nombre),
+              vida: poke.vida,
+              ataque: poke.ataque,
+              defensa: poke.defensa,
+              velocidad: poke.velocidad,
+              altura: poke.altura,
+              peso: poke.peso,
+              db: poke.db,
+            };
+          });
+
+          return res.status(200).send(RESULTS);
         }
       }
       //...............................................................................
@@ -129,10 +164,66 @@ export const getPokemonDetail = async (req: Request, res: Response) => {
       };
       return res.status(200).send(POKE_API_DETAIL);
     } else {
-      const POKE_DB_DETAIL: PokeFormat = await Pokemon.findByPk(id);
-      return res.status(200).send(POKE_DB_DETAIL);
+      const POKE_DB_DETAIL: any = await Pokemon.findByPk(id, {
+        include: { model: Tipo },
+      });
+
+      let newObj: PokeFormat = {
+        id: POKE_DB_DETAIL.id,
+        nombre: POKE_DB_DETAIL.nombre,
+        imagen: POKE_DB_DETAIL.imagen,
+        tipos: POKE_DB_DETAIL.Tipos.length
+          ? POKE_DB_DETAIL.Tipos.map((tipo: any) => tipo.nombre)
+          : POKE_DB_DETAIL.Tipos,
+        vida: POKE_DB_DETAIL.vida,
+        ataque: POKE_DB_DETAIL.ataque,
+        defensa: POKE_DB_DETAIL.defensa,
+        velocidad: POKE_DB_DETAIL.velocidad,
+        altura: POKE_DB_DETAIL.altura,
+        peso: POKE_DB_DETAIL.peso,
+        db: POKE_DB_DETAIL.db,
+      };
+
+      return res.status(200).send(newObj);
     }
   } catch (error: any) {
     return res.status(404).send({ error: error.message });
+  }
+};
+
+export const postPokemon = async (req: Request, res: Response) => {
+  const { nombre, vida, ataque, defensa, velocidad, altura, peso, TipoId } =
+    req.body;
+  if (
+    !nombre ||
+    !vida ||
+    !ataque ||
+    !defensa ||
+    !velocidad ||
+    !altura ||
+    !peso
+  ) {
+    return res
+      .status(404)
+      .send(
+        "¡Faltan datos obligatórios!, el objeto de creacion debe cumplir con las propiedades: (nombre,vida,ataque,defensa,velocidad,altura,peso)"
+      );
+  } else {
+    try {
+      const CREATE_POKEMON = await Pokemon.create({
+        nombre,
+        vida,
+        ataque,
+        defensa,
+        velocidad,
+        altura,
+        peso,
+        TipoId,
+      });
+      await CREATE_POKEMON.addTipo(TipoId);
+      return res.send(CREATE_POKEMON);
+    } catch (error: any) {
+      return res.status(404).send({ error: error.message });
+    }
   }
 };

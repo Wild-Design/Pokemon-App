@@ -6,10 +6,9 @@ module.exports = (DATA_BASE: Sequelize) => {
     "Tipo",
     {
       id: {
-        type: DataTypes.UUID,
+        type: DataTypes.INTEGER,
         primaryKey: true,
-        allowNull: false,
-        defaultValue: UUIDV4,
+        autoIncrement: true,
       },
       nombre: {
         type: DataTypes.STRING,
