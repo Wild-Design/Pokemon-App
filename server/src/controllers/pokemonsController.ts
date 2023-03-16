@@ -192,8 +192,17 @@ export const getPokemonDetail = async (req: Request, res: Response) => {
 };
 
 export const postPokemon = async (req: Request, res: Response) => {
-  const { nombre, vida, ataque, defensa, velocidad, altura, peso, TipoId } =
-    req.body;
+  const {
+    nombre,
+    imagen,
+    vida,
+    ataque,
+    defensa,
+    velocidad,
+    altura,
+    peso,
+    TipoId,
+  } = req.body;
   if (
     !nombre ||
     !vida ||
@@ -206,12 +215,13 @@ export const postPokemon = async (req: Request, res: Response) => {
     return res
       .status(404)
       .send(
-        "¡Faltan datos obligatórios!, el objeto de creacion debe cumplir con las propiedades: (nombre,vida,ataque,defensa,velocidad,altura,peso)"
+        "¡Faltan datos obligatórios!, el objeto de creacion debe cumplir con las propiedades: (TipoId,nombre,imagen,vida,ataque,defensa,velocidad,altura,peso)"
       );
   } else {
     try {
       const CREATE_POKEMON = await Pokemon.create({
         nombre,
+        imagen,
         vida,
         ataque,
         defensa,

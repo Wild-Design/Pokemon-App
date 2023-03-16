@@ -1,12 +1,21 @@
 import "./App.css";
-import Coso from "./components/coso";
+import Landing from "./pages/Landing/Landing";
+import Home from "./pages/Home/Home";
+import { Routes, Route } from "react-router-dom";
+import CreatePokemon from "./pages/CreatePokemon/CreatePokemon";
+import PokeDetail from "./pages/PokeDetail/PokeDetail";
 
-function App() {
+const App: React.FC = () => {
   return (
     <div className='App'>
-      <Coso />
+      <Routes>
+        <Route path='/' element={<Landing />} />
+        <Route path='/home' element={<Home />} />
+        <Route path='/pokeDetail/:id' element={<PokeDetail />} />
+        <Route path='/create' element={<CreatePokemon />} />
+      </Routes>
     </div>
   );
-}
+};
 
 export default App;

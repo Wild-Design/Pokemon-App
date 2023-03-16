@@ -2,12 +2,18 @@ import express, { Express, Request, Response } from "express";
 import db from "./src/db"; //importo la base de datos junto con los modelos (Pokemon y Tipo)
 const { DATA_BASE } = db;
 const morgan = require("morgan");
+const cors = require("cors");
 require("dotenv").config();
 
 const server: Express = express();
 const PokemonsRouter = require("./src/routes/pokemons.routes");
 const TypesRouter = require("./src/routes/types.routes");
 
+server.use(
+  cors({
+    origin: "http://127.0.0.1:5173",
+  })
+);
 server.use(express.json());
 server.use(morgan("dev"));
 server.use(PokemonsRouter);
