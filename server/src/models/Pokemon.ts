@@ -16,6 +16,12 @@ module.exports = (DATA_BASE: Sequelize) => {
         allowNull: false,
         unique: true,
       },
+      imagen: {
+        type: DataTypes.ARRAY(DataTypes.STRING),
+        defaultValue: [
+          "https://pbs.twimg.com/media/EU3aJpMXgAEUPDR?format=jpg&name=small",
+        ],
+      },
       vida: {
         type: DataTypes.FLOAT,
       },

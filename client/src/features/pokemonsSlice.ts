@@ -3,12 +3,20 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "../app/store";
 import axios from "axios";
 
-interface PokemonsState {
-  allPokemons: [];
-  pokemonDetail: {};
-}
+// interface PokeObj {
+//   id: any;
+//   nombre: string;
+//   imagen: string;
+//   tipos: string[];
+//   vida: string | number;
+//   ataque: string | number;
+//   defensa: string | number;
+//   velocidad: string | number;
+//   altura: string | number;
+//   peso: string | number;
+// }
 
-const initialState: PokemonsState = {
+const initialState = {
   allPokemons: [],
   pokemonDetail: {},
 };
@@ -21,17 +29,23 @@ export const pokemonsSlice = createSlice({
     getPokemons: (state, PayloadAction) => {
       state.allPokemons = PayloadAction.payload;
     },
+    pokeName: (state, PayloadAction) => {
+      state.allPokemons = PayloadAction.payload;
+    },
     getPokemonDetail: (state, PayloadAction) => {
       state.pokemonDetail = PayloadAction.payload;
     },
   },
 });
 
-export const getAllPokemons = () => {
+export const getAllPokemons = (name?: string) => {
   return async (dispatch: any) => {
     try {
-      const POKEMONS = await axios.get("http://localhost:3001/pokemons");
-      const RESPONSE = POKEMONS.data;
+      const FETCH = name
+        ? await axios.get(`http://localhost:3001/pokemons?name=${name}`)
+        : await axios.get(`http://localhost:3001/pokemons`);
+
+      const RESPONSE = FETCH.data;
 
       dispatch(getPokemons(RESPONSE));
     } catch (error: any) {
@@ -40,7 +54,7 @@ export const getAllPokemons = () => {
   };
 };
 
-export const pokemonDetail = (value: string | number) => {
+export const pokemonDetail = (value: any) => {
   return async (dispatch: any) => {
     try {
       const GET_DETAIL = await axios.get(
