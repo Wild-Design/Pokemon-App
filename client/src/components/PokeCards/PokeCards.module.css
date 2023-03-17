@@ -1,0 +1,7 @@
+.cardsContainer {
+  display: flex;
+  flex-wrap: wrap;
+}
+.cardsContainer img{
+  height: 300px;
+}

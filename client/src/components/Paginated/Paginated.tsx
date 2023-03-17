@@ -1,3 +1,4 @@
+import { useAppDispatch } from "../../app/hooks";
 interface Props {
   elementsPerPage: any;
   allLength: number;
@@ -9,6 +10,7 @@ const Paginated = ({ elementsPerPage, allLength, paginated }: Props) => {
   for (let i = 0; i < Math.ceil(allLength / elementsPerPage); i++) {
     numbersPerPage.push(i + 1);
   }
+
   return (
     <ul>
       {numbersPerPage?.map((number) => {

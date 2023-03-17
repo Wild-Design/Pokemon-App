@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { pokemonDetail } from "../../features/pokemonsSlice";
-import Loader from "../../assets/loaders/6b7.gif";
+import Loader from "../../assets/loaders/loading.45600eb9.gif";
 
 const PokeDetail: React.FC = () => {
   const { id } = useParams();

@@ -1,4 +1,5 @@
 import React from "react";
+import style from "./PokeCards.module.css";
 import PokeCard from "../PokeCard/PokeCard";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { getAllPokemons } from "../../features/pokemonsSlice";
@@ -12,7 +13,7 @@ const PokeCards: React.FC = () => {
   );
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [pokemonPerPage, setPokemonPerPage] = useState(10);
+  const [pokemonPerPage] = useState(9);
 
   const indexFromEndPokemon = currentPage * pokemonPerPage;
   const indexFromFirstPokemon = indexFromEndPokemon - pokemonPerPage;
@@ -29,6 +30,10 @@ const PokeCards: React.FC = () => {
     dispatch(getAllPokemons());
   }, [dispatch]);
 
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [ALL_POKEMONS]);
+
   return (
     <div>
       <Paginated
@@ -36,15 +41,17 @@ const PokeCards: React.FC = () => {
         allLength={ALL_POKEMONS.length}
         paginated={paginated}
       />
-
-      {currentPokemons?.map((pokemon: any, index: number) => (
-        <PokeCard
-          key={index}
-          imagen={pokemon.imagen}
-          nombre={pokemon.nombre}
-          tipos={pokemon.tipos}
-        />
-      ))}
+      <div className={style.cardsContainer}>
+        {currentPokemons?.map((pokemon: any, index: number) => (
+          <PokeCard
+            key={pokemon.nombre}
+            id={pokemon.id}
+            imagen={pokemon.imagen}
+            nombre={pokemon.nombre}
+            tipos={pokemon.tipos}
+          />
+        ))}
+      </div>
     </div>
   );
 };
