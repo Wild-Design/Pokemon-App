@@ -41,17 +41,21 @@ const PokeCards: React.FC = () => {
         allLength={ALL_POKEMONS.length}
         paginated={paginated}
       />
-      <div className={style.cardsContainer}>
-        {currentPokemons?.map((pokemon: any, index: number) => (
-          <PokeCard
-            key={pokemon.nombre}
-            id={pokemon.id}
-            imagen={pokemon.imagen}
-            nombre={pokemon.nombre}
-            tipos={pokemon.tipos}
-          />
-        ))}
-      </div>
+      {currentPokemons.length ? (
+        <div className={style.cardsContainer}>
+          {currentPokemons?.map((pokemon: any, index: number) => (
+            <PokeCard
+              key={pokemon.nombre}
+              id={pokemon.id}
+              imagen={pokemon.imagen}
+              nombre={pokemon.nombre}
+              tipos={pokemon.tipos}
+            />
+          ))}
+        </div>
+      ) : (
+        <p>CARGANDO LOS BICHO</p>
+      )}
     </div>
   );
 };

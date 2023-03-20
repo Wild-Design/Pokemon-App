@@ -5,7 +5,6 @@ import PokeCards from "../../components/PokeCards/PokeCards";
 const Home: React.FC = () => {
   return (
     <div className='App'>
-      <h2>Este es el componente Home</h2>
       <NavBar />
       <PokeCards />
       <Link to={"/"}>

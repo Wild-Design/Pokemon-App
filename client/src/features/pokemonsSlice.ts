@@ -18,7 +18,9 @@ import axios from "axios";
 
 const initialState = {
   allPokemons: [],
+  allPokemonsCopy: [],
   pokemonDetail: {},
+  allTypes: [],
 };
 
 export const pokemonsSlice = createSlice({
@@ -28,12 +30,42 @@ export const pokemonsSlice = createSlice({
   reducers: {
     getPokemons: (state, PayloadAction) => {
       state.allPokemons = PayloadAction.payload;
+      state.allPokemonsCopy = PayloadAction.payload;
     },
     pokeName: (state, PayloadAction) => {
       state.allPokemons = PayloadAction.payload;
     },
     getPokemonDetail: (state, PayloadAction) => {
       state.pokemonDetail = PayloadAction.payload;
+    },
+    allTypes: (state, PayloadAction) => {
+      state.allTypes = PayloadAction.payload;
+    },
+    orderPokemons: (state, PayloadAction) => {
+      if (PayloadAction.payload === "AZ") {
+        const sort = [...state.allPokemons].sort((a: any, b: any) =>
+          a.nombre.localeCompare(b.nombre)
+        );
+        state.allPokemons = sort;
+      }
+      if (PayloadAction.payload === "ZA") {
+        const sort = [...state.allPokemons].sort((a: any, b: any) =>
+          b.nombre.localeCompare(a.nombre)
+        );
+        state.allPokemons = sort;
+      }
+      if (PayloadAction.payload === "MAYOR-ATAQUE") {
+        const sort = [...state.allPokemons].sort(
+          (a: any, b: any) => b.ataque - a.ataque
+        );
+        state.allPokemons = sort;
+      }
+      if (PayloadAction.payload === "MENOR-ATAQUE") {
+        const sort = [...state.allPokemons].sort(
+          (a: any, b: any) => a.ataque - b.ataque
+        );
+        state.allPokemons = sort;
+      }
     },
   },
 });
@@ -44,9 +76,7 @@ export const getAllPokemons = (name?: string) => {
       const FETCH = name
         ? await axios.get(`http://localhost:3001/pokemons?name=${name}`)
         : await axios.get(`http://localhost:3001/pokemons`);
-
       const RESPONSE = FETCH.data;
-
       dispatch(getPokemons(RESPONSE));
     } catch (error: any) {
       console.log(error.message);
@@ -61,7 +91,6 @@ export const pokemonDetail = (value: any) => {
         `http://localhost:3001/pokemons/${value}`
       );
       const DETAIL = GET_DETAIL.data;
-
       dispatch(getPokemonDetail(DETAIL));
     } catch (error: any) {
       console.log(error.message);
@@ -69,6 +98,19 @@ export const pokemonDetail = (value: any) => {
   };
 };
 
-export const { getPokemons, getPokemonDetail } = pokemonsSlice.actions;
+export const getAllTypes = () => {
+  return async (dispatch: any) => {
+    try {
+      const GET_TYPES = await axios.get("http://localhost:3001/types");
+      const TYPES = GET_TYPES.data;
+      dispatch(allTypes(TYPES));
+    } catch (error: any) {
+      console.log(error.message);
+    }
+  };
+};
+
+export const { getPokemons, getPokemonDetail, allTypes, orderPokemons } =
+  pokemonsSlice.actions;
 
 export default pokemonsSlice.reducer;

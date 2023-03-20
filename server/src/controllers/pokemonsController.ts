@@ -25,7 +25,7 @@ export const getAllPokemons = async (req: Request, res: Response) => {
   const { name } = req.query;
 
   try {
-    const API = await axios.get("https://pokeapi.co/api/v2/pokemon?limit=50");
+    const API = await axios.get("https://pokeapi.co/api/v2/pokemon?limit=151");
     const DATA = API.data.results;
 
     const promises: Promise<AxiosResponse<any, any>>[] = [];

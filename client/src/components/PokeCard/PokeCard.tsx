@@ -9,11 +9,21 @@ interface Props {
   tipos: any[];
 }
 
+//
+import imgTypes from "../../utils/imgTypes";
+//
+
 const PokeCard = ({ id, imagen, nombre, tipos }: Props) => {
   const navigate = useNavigate();
 
   const [indexImage, setIndexImage] = useState(0);
+  const [normalShiny, setNormalShiny] = useState("Shiny"); //solo uso para setear el nombre del boton a normal si esta en shiny y viceversa
+
   const handleIndexImage = () => {
+    normalShiny === "Shiny"
+      ? setNormalShiny("Normal")
+      : setNormalShiny("Shiny");
+
     if (imagen[1])
       return indexImage === 0 ? setIndexImage(1) : setIndexImage(0);
   };
@@ -24,10 +34,10 @@ const PokeCard = ({ id, imagen, nombre, tipos }: Props) => {
       <h3>Nombre: {nombre}</h3>
       {!imagen[1] ? (
         <button disabled onClick={handleIndexImage}>
-          Shiny
+          No Shiny
         </button>
       ) : (
-        <button onClick={handleIndexImage}>Shiny</button>
+        <button onClick={handleIndexImage}>{normalShiny}</button>
       )}
       <ul>
         {tipos?.map((tipo, index: number) => (
