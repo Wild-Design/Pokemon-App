@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import style from "./PokeCard.module.css";
-import Loader from "../../assets/loaders/loading.45600eb9.gif";
 import { useNavigate } from "react-router-dom";
 interface Props {
   id: string | number;
@@ -39,11 +38,17 @@ const PokeCard = ({ id, imagen, nombre, tipos }: Props) => {
       ) : (
         <button onClick={handleIndexImage}>{normalShiny}</button>
       )}
-      <ul>
-        {tipos?.map((tipo, index: number) => (
-          <li key={index}>{tipo}</li>
-        ))}
-      </ul>
+
+      {tipos?.map((tipos: any, index: number) => {
+        const URL: any = imgTypes.find((e) => {
+          if (e.nombre === tipos) {
+            return e.imagen;
+          }
+        });
+
+        return <img key={index} src={URL.imagen} alt={URL.nombre} />;
+      })}
+
       <button onClick={() => navigate(`/pokeDetail/${id}`)}>
         Mas Detalles
       </button>

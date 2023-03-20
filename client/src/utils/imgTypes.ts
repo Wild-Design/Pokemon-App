@@ -1,93 +1,75 @@
 const TYPES = [
   {
     nombre: "normal",
-    imagen:
-      "https://static.wikia.nocookie.net/pokemongo_es_gamepedia/images/4/43/Icon_Normal.png/revision/latest?cb=20220331181122",
+    imagen: "https://archives.bulbagarden.net/media/upload/9/95/Normal_icon_SwSh.png",
   },
   {
     nombre: "fighting",
-    imagen:
-      "https://static.wikia.nocookie.net/pokemongo_es_gamepedia/images/4/4c/Icon_Lucha.png/revision/latest?cb=20220331181227",
+    imagen: "https://archives.bulbagarden.net/media/upload/3/3b/Fighting_icon_SwSh.png",
   },
   {
-    nombre: "flyshing",
-    imagen:
-      "https://static.wikia.nocookie.net/pokemongo_es_gamepedia/images/d/d3/Icon_Volador.png/revision/latest?cb=20220331181207",
+    nombre: "flying",
+    imagen: "https://archives.bulbagarden.net/media/upload/b/b5/Flying_icon_SwSh.png",
   },
   {
     nombre: "poison",
-    imagen:
-      "https://static.wikia.nocookie.net/pokemongo_es_gamepedia/images/3/3e/Icon_Veneno.png/revision/latest?cb=20220331181112",
+    imagen: "https://archives.bulbagarden.net/media/upload/8/8d/Poison_icon_SwSh.png",
   },
   {
     nombre: "ground",
-    imagen:
-      "https://static.wikia.nocookie.net/pokemongo_es_gamepedia/images/8/8d/Icon_Tierra.png/revision/latest?cb=20220331181140",
+    imagen: "https://archives.bulbagarden.net/media/upload/2/27/Ground_icon_SwSh.png",
   },
   {
     nombre: "rock",
-    imagen:
-      "https://static.wikia.nocookie.net/pokemongo_es_gamepedia/images/1/12/Icon_Roca.png/revision/latest?cb=20220331181056",
+    imagen: "https://archives.bulbagarden.net/media/upload/1/11/Rock_icon_SwSh.png",
   },
   {
     nombre: "bug",
-    imagen:
-      "https://static.wikia.nocookie.net/pokemongo_es_gamepedia/images/7/7e/Icon_Bicho.png/revision/latest?cb=20220331202325",
+    imagen: "https://archives.bulbagarden.net/media/upload/9/9c/Bug_icon_SwSh.png",
   },
   {
     nombre: "ghost",
-    imagen:
-      "https://static.wikia.nocookie.net/pokemongo_es_gamepedia/images/9/9a/Icon_Fantasma.png/revision/latest?cb=20220331181158",
+    imagen: "https://archives.bulbagarden.net/media/upload/0/01/Ghost_icon_SwSh.png",
   },
   {
     nombre: "steel",
-    imagen:
-      "https://static.wikia.nocookie.net/pokemongo_es_gamepedia/images/b/bc/Icon_Acero.png/revision/latest?cb=20220331181046",
+    imagen: "https://archives.bulbagarden.net/media/upload/0/09/Steel_icon_SwSh.png",
   },
   {
     nombre: "fire",
-    imagen:
-      "https://static.wikia.nocookie.net/pokemongo_es_gamepedia/images/4/44/Icon_Fuego.png/revision/latest?cb=20220331181217",
+    imagen: "https://archives.bulbagarden.net/media/upload/a/ab/Fire_icon_SwSh.png",
   },
   {
     nombre: "water",
-    imagen:
-      "https://static.wikia.nocookie.net/pokemongo_es_gamepedia/images/d/d3/Icon_Agua.png/revision/latest?cb=20220331181037",
+    imagen: "https://archives.bulbagarden.net/media/upload/8/80/Water_icon_SwSh.png",
   },
   {
     nombre: "grass",
-    imagen:
-      "https://static.wikia.nocookie.net/pokemongo_es_gamepedia/images/7/7f/Icon_Planta.png/revision/latest?cb=20220331181149",
+    imagen: "https://archives.bulbagarden.net/media/upload/a/a8/Grass_icon_SwSh.png",
   },
   {
     nombre: "electric",
-    imagen:
-      "https://static.wikia.nocookie.net/pokemongo_es_gamepedia/images/3/33/Icon_El%C3%A9ctrico.png/revision/latest?cb=20220331181243",
+    imagen: "https://archives.bulbagarden.net/media/upload/7/7b/Electric_icon_SwSh.png",
   },
   {
     nombre: "psychic",
-    imagen:
-      "https://static.wikia.nocookie.net/pokemongo_es_gamepedia/images/c/c0/Icon_Ps%C3%ADquico.png/revision/latest?cb=20220331181104",
+    imagen: "https://archives.bulbagarden.net/media/upload/7/73/Psychic_icon_SwSh.png",
   },
   {
     nombre: "ice",
-    imagen:
-      "https://static.wikia.nocookie.net/pokemongo_es_gamepedia/images/2/22/Icon_Hielo.png/revision/latest?cb=20220331181131",
+    imagen: "https://archives.bulbagarden.net/media/upload/1/15/Ice_icon_SwSh.png",
   },
   {
     nombre: "dragon",
-    imagen:
-      "https://static.wikia.nocookie.net/pokemongo_es_gamepedia/images/9/96/Icon_Drag%C3%B3n.png/revision/latest?cb=20220331181251",
+    imagen: "https://archives.bulbagarden.net/media/upload/7/70/Dragon_icon_SwSh.png",
   },
   {
     nombre: "dark",
-    imagen:
-      "https://static.wikia.nocookie.net/pokemongo_es_gamepedia/images/a/a4/Icon_Siniestro.png/revision/latest?cb=20220331181300",
+    imagen: "https://archives.bulbagarden.net/media/upload/d/d5/Dark_icon_SwSh.png",
   },
   {
     nombre: "fairy",
-    imagen:
-      "https://static.wikia.nocookie.net/pokemongo_es_gamepedia/images/6/60/Icon_Hada.png/revision/latest?cb=20220331181235",
+    imagen: "https://bulbapedia.bulbagarden.net/wiki/File:Fairy_icon_SwSh.png",
   },
   {
     nombre: "unknown",

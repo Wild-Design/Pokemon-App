@@ -36,7 +36,11 @@ export const pokemonsSlice = createSlice({
       state.allPokemons = PayloadAction.payload;
     },
     getPokemonDetail: (state, PayloadAction) => {
-      state.pokemonDetail = PayloadAction.payload;
+      if (PayloadAction.payload === "") {
+        state.pokemonDetail = {};
+      } else {
+        state.pokemonDetail = PayloadAction.payload;
+      }
     },
     allTypes: (state, PayloadAction) => {
       state.allTypes = PayloadAction.payload;
