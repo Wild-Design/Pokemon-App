@@ -46,7 +46,14 @@ const PokeCard = ({ id, imagen, nombre, tipos }: Props) => {
           }
         });
 
-        return <img key={index} src={URL.imagen} alt={URL.nombre} />;
+        return (
+          <img
+            className={style.type}
+            key={index}
+            src={URL.imagen}
+            alt={URL.nombre}
+          />
+        );
       })}
 
       <button onClick={() => navigate(`/pokeDetail/${id}`)}>

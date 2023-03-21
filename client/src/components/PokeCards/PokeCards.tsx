@@ -43,7 +43,7 @@ const PokeCards: React.FC = () => {
       />
       {currentPokemons.length ? (
         <div className={style.cardsContainer}>
-          {currentPokemons?.map((pokemon: any, index: number) => (
+          {currentPokemons?.map((pokemon: any) => (
             <PokeCard
               key={pokemon.nombre}
               id={pokemon.id}

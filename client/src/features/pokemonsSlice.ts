@@ -71,6 +71,28 @@ export const pokemonsSlice = createSlice({
         state.allPokemons = sort;
       }
     },
+    filterPokemons: (state, PayloadAction) => {
+      if (PayloadAction.payload !== "") {
+        if (PayloadAction.payload === "DB") {
+          const filter: any = state.allPokemonsCopy.filter(
+            (pokemons: any) => pokemons.db
+          );
+          state.allPokemons = filter;
+        } else if (PayloadAction.payload === "API") {
+          const filter: any = state.allPokemonsCopy.filter(
+            (pokemons: any) => !pokemons.db
+          );
+          state.allPokemons = filter;
+        } else if (PayloadAction.payload === "ALL") {
+          state.allPokemons = state.allPokemonsCopy;
+        } else {
+          const filter: any = state.allPokemonsCopy.filter((pokemons: any) =>
+            pokemons.tipos.includes(PayloadAction.payload)
+          );
+          state.allPokemons = filter;
+        }
+      }
+    },
   },
 });
 
@@ -107,14 +129,23 @@ export const getAllTypes = () => {
     try {
       const GET_TYPES = await axios.get("http://localhost:3001/types");
       const TYPES = GET_TYPES.data;
-      dispatch(allTypes(TYPES));
+      const arr: any[] = [];
+      for (let i: number = 0; i < TYPES.length - 2; i++) {
+        arr.push(TYPES[i]);
+      }
+      dispatch(allTypes(arr));
     } catch (error: any) {
       console.log(error.message);
     }
   };
 };
 
-export const { getPokemons, getPokemonDetail, allTypes, orderPokemons } =
-  pokemonsSlice.actions;
+export const {
+  getPokemons,
+  getPokemonDetail,
+  allTypes,
+  orderPokemons,
+  filterPokemons,
+} = pokemonsSlice.actions;
 
 export default pokemonsSlice.reducer;
