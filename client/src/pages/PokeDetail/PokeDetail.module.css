@@ -1,0 +1,44 @@
+/* .container {
+  
+} */
+.pokemonContainer {
+  display: flex;
+  justify-content: space-around;
+  background-color: orange;
+}
+.statsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  width: 400px; /*Hechar ojo luego*/
+  height: 200px;
+  border: 1px solid #000;
+}
+.spanAndPorsentualContainer {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+}
+.porcentualContainer {
+  width: 250px;
+  height: 20px;
+  border-radius: 20px;
+  border: 1px solid #000;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+  overflow: hidden;
+}
+
+.typesContainer {
+  border: 1px solid #000;
+}
+
+.rightContainer {
+  display: flex;
+  flex-direction: column;
+}
+.rightContainer img {
+  height: 400px;
+}

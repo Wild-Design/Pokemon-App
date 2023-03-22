@@ -27,7 +27,9 @@ const PokeCards: React.FC = () => {
   };
 
   useEffect(() => {
-    dispatch(getAllPokemons());
+    if (!ALL_POKEMONS.length) {
+      dispatch(getAllPokemons());
+    }
   }, [dispatch]);
 
   useEffect(() => {
