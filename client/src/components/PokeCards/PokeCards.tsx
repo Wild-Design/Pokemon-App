@@ -1,4 +1,5 @@
 import React from "react";
+import style from "./PokeCards.module.css";
 import PokeCard from "../PokeCard/PokeCard";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { getAllPokemons } from "../../features/pokemonsSlice";
@@ -12,7 +13,7 @@ const PokeCards: React.FC = () => {
   );
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [pokemonPerPage, setPokemonPerPage] = useState(10);
+  const [pokemonPerPage] = useState(9);
 
   const indexFromEndPokemon = currentPage * pokemonPerPage;
   const indexFromFirstPokemon = indexFromEndPokemon - pokemonPerPage;
@@ -26,25 +27,37 @@ const PokeCards: React.FC = () => {
   };
 
   useEffect(() => {
-    dispatch(getAllPokemons());
+    if (!ALL_POKEMONS.length) {
+      dispatch(getAllPokemons());
+    }
   }, [dispatch]);
 
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [ALL_POKEMONS]);
+
   return (
-    <div>
+    <div className={style.container}>
       <Paginated
         elementsPerPage={pokemonPerPage}
         allLength={ALL_POKEMONS.length}
         paginated={paginated}
       />
-
-      {currentPokemons?.map((pokemon: any, index: number) => (
-        <PokeCard
-          key={index}
-          imagen={pokemon.imagen}
-          nombre={pokemon.nombre}
-          tipos={pokemon.tipos}
-        />
-      ))}
+      {currentPokemons.length ? (
+        <div className={style.cardsContainer}>
+          {currentPokemons?.map((pokemon: any) => (
+            <PokeCard
+              key={pokemon.nombre}
+              id={pokemon.id}
+              imagen={pokemon.imagen}
+              nombre={pokemon.nombre}
+              tipos={pokemon.tipos}
+            />
+          ))}
+        </div>
+      ) : (
+        <p>CARGANDO LOS BICHO</p>
+      )}
     </div>
   );
 };
