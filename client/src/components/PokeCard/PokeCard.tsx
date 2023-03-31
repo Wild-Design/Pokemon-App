@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import style from "./PokeCard.module.css";
 import { useNavigate } from "react-router-dom";
+import { BsStars } from "react-icons/bs";
+import { CgSpinnerTwoAlt } from "react-icons/cg";
+
 interface Props {
   id: string | number;
   imagen: string;
@@ -28,37 +31,48 @@ const PokeCard = ({ id, imagen, nombre, tipos }: Props) => {
   };
 
   return (
-    <div>
-      <img src={imagen[indexImage] || imagen[0]} alt={nombre} />
-      <h3>Nombre: {nombre}</h3>
-      {!imagen[1] ? (
-        <button disabled onClick={handleIndexImage}>
-          No Shiny
-        </button>
-      ) : (
-        <button onClick={handleIndexImage}>{normalShiny}</button>
-      )}
+    <div className={style.cardContainer}>
+      <div className={style.info}>
+        <h3>{nombre}</h3>
+        {!imagen[1] ? (
+          <span className={style.noShiny} onClick={handleIndexImage}>
+            {<BsStars />}
+          </span>
+        ) : (
+          <span
+            className={
+              normalShiny === "Shiny" ? style.buttonShiny : style.buttonNormal
+            }
+            onClick={handleIndexImage}
+          >
+            {normalShiny === "Shiny" ? <BsStars /> : <CgSpinnerTwoAlt />}
+          </span>
+        )}
 
-      {tipos?.map((tipos: any, index: number) => {
-        const URL: any = imgTypes.find((e) => {
-          if (e.nombre === tipos) {
-            return e.imagen;
-          }
-        });
-
-        return (
-          <img
-            className={style.type}
-            key={index}
-            src={URL.imagen}
-            alt={URL.nombre}
-          />
-        );
-      })}
-
-      <button onClick={() => navigate(`/pokeDetail/${id}`)}>
-        Mas Detalles
-      </button>
+        <div className={style.typesContainer}>
+          {tipos?.map((tipos: any, index: number) => {
+            const URL: any = imgTypes.find((e) => {
+              if (e.nombre === tipos) {
+                return e.imagen;
+              }
+            });
+            return (
+              <img
+                className={style.typeImg}
+                key={index}
+                src={URL.imagen}
+                alt={URL.nombre}
+              />
+            );
+          })}
+        </div>
+      </div>
+      <img
+        className={style.pokeImg}
+        src={imagen[indexImage] || imagen[0]}
+        alt={nombre}
+        onClick={() => navigate(`/pokeDetail/${id}`)}
+      />
     </div>
   );
 };

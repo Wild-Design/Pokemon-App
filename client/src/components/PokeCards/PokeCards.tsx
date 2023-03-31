@@ -37,7 +37,7 @@ const PokeCards: React.FC = () => {
   }, [ALL_POKEMONS]);
 
   return (
-    <div>
+    <div className={style.container}>
       <Paginated
         elementsPerPage={pokemonPerPage}
         allLength={ALL_POKEMONS.length}

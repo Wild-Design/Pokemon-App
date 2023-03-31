@@ -16,6 +16,18 @@ import axios from "axios";
 //   peso: string | number;
 // }
 
+interface ModelCreate {
+  nombre: string;
+  imagen: any;
+  vida: number | string;
+  ataque: number | string;
+  defensa: number | string;
+  velocidad: number | string;
+  altura: number | string;
+  peso: number | string;
+  TipoId: string[];
+}
+
 const initialState = {
   allPokemons: [],
   allPokemonsCopy: [],
@@ -136,6 +148,17 @@ export const getAllTypes = () => {
       dispatch(allTypes(arr));
     } catch (error: any) {
       console.log(error.message);
+    }
+  };
+};
+
+export const createPokemon = (body: ModelCreate) => {
+  return async (dispatch: any) => {
+    try {
+      await axios.post("http://localhost:3001/pokemons", body);
+      return true;
+    } catch (error: any) {
+      return false;
     }
   };
 };

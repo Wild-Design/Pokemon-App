@@ -5,6 +5,9 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { pokemonDetail } from "../../features/pokemonsSlice";
 import Loader from "../../assets/loaders/loading.45600eb9.gif";
 import { useNavigate } from "react-router-dom";
+import imgTypes from "../../utils/imgTypes";
+import Fondo from "../../assets/pokemon-wallpapers-3.png";
+import { HiOutlineArrowLeft } from "react-icons/hi";
 
 const PokeDetail: React.FC = () => {
   const { id } = useParams();
@@ -36,85 +39,100 @@ const PokeDetail: React.FC = () => {
   };
 
   return Object.entries(DETAIL).length ? (
-    <div className={style.container}>
-      <button onClick={backHome}>Atras</button>
-
-      <div className={style.pokemonContainer}>
-        <div>
-          <div className={style.statsContainer}>
-            <div className={style.spanAndPorsentualContainer}>
-              <span>Vida: {DETAIL.vida}</span>{" "}
-              <div className={style.porcentualContainer}>
-                <div
-                  style={{
-                    height: "100%",
-                    backgroundColor: "#f00",
-                    width: `${(vida / 250) * 100}%`,
-                  }}
-                ></div>
+    <>
+      <span className={style.back} onClick={backHome}>
+        {<HiOutlineArrowLeft />}
+      </span>
+      <img className={style.fondo} src={Fondo} alt='Fondo' />
+      <div className={style.container}>
+        <div className={style.pokemonContainer}>
+          <div className={style.coso}>
+            <div className={style.statsContainer}>
+              <div className={style.spanAndPorsentualContainer}>
+                <span>Vida: {DETAIL.vida}</span>{" "}
+                <div className={style.porcentualContainer}>
+                  <div
+                    style={{
+                      height: "100%",
+                      backgroundColor: "#77f",
+                      width: `${(vida / 250) * 100}%`,
+                    }}
+                  ></div>
+                </div>
+              </div>
+              <div className={style.spanAndPorsentualContainer}>
+                <span>Ataque: {DETAIL.ataque}</span>{" "}
+                <div className={style.porcentualContainer}>
+                  <div
+                    style={{
+                      height: "100%",
+                      backgroundColor: "#c00",
+                      width: `${(ataque / 250) * 100}%`,
+                    }}
+                  ></div>
+                </div>
+              </div>
+              <div className={style.spanAndPorsentualContainer}>
+                <span>Defensa: {DETAIL.defensa}</span>{" "}
+                <div className={style.porcentualContainer}>
+                  <div
+                    style={{
+                      height: "100%",
+                      backgroundColor: "#4f4",
+                      width: `${(defensa / 250) * 100}%`,
+                    }}
+                  ></div>
+                </div>
+              </div>
+              <div className={style.spanAndPorsentualContainer}>
+                <span>Velocidad: {DETAIL.velocidad}</span>{" "}
+                <div className={style.porcentualContainer}>
+                  <div
+                    style={{
+                      height: "100%",
+                      backgroundColor: "#f00",
+                      width: `${(velocidad / 250) * 100}%`,
+                    }}
+                  ></div>
+                </div>
               </div>
             </div>
-            <div className={style.spanAndPorsentualContainer}>
-              <span>Ataque: {DETAIL.ataque}</span>{" "}
-              <div className={style.porcentualContainer}>
-                <div
-                  style={{
-                    height: "100%",
-                    backgroundColor: "#f00",
-                    width: `${(ataque / 250) * 100}%`,
-                  }}
-                ></div>
-              </div>
+            <div className={style.pesoAltura}>
+              <span>Altura: {DETAIL.altura}</span>
+              <span>Peso: {DETAIL.peso}</span>
             </div>
-            <div className={style.spanAndPorsentualContainer}>
-              <span>Defensa: {DETAIL.defensa}</span>{" "}
-              <div className={style.porcentualContainer}>
-                <div
-                  style={{
-                    height: "100%",
-                    backgroundColor: "#f00",
-                    width: `${(defensa / 250) * 100}%`,
-                  }}
-                ></div>
-              </div>
-            </div>
-            <div className={style.spanAndPorsentualContainer}>
-              <span>Velocidad: {DETAIL.velocidad}</span>{" "}
-              <div className={style.porcentualContainer}>
-                <div
-                  style={{
-                    height: "100%",
-                    backgroundColor: "#f00",
-                    width: `${(velocidad / 250) * 100}%`,
-                  }}
-                ></div>
-              </div>
-            </div>
-          </div>
-
-          <span>Altura: {DETAIL.altura}</span>
-          <span>Peso: {DETAIL.peso}</span>
-          <div className={style.typesContainer}>
-            <p>Tipos:</p>
-            <ul>
-              {DETAIL.tipos?.map((tipo: string, index: number = 8000) => {
-                return <li key={index}>{tipo}</li>;
+            <div className={style.typesContainer}>
+              <p>Tipos:</p>
+              {DETAIL.tipos?.map((tipos: any, index: number) => {
+                const URL: any = imgTypes.find((e) => {
+                  if (e.nombre === tipos) {
+                    return e.imagen;
+                  }
+                });
+                return (
+                  <img
+                    className={style.type}
+                    key={index}
+                    src={URL.imagen}
+                    alt={URL.nombre}
+                  />
+                );
               })}
-            </ul>
+            </div>
           </div>
-        </div>
 
-        <div className={style.rightContainer}>
-          <h3>Nombre: {DETAIL.nombre}</h3>
-          <span>Id: {DETAIL.id}</span>
-          {DETAIL.imagen ? (
-            <img src={DETAIL.imagen[0]} alt={DETAIL.id} />
-          ) : (
-            <span>Sin imagen</span>
-          )}
+          <div className={style.rightContainer}>
+            <h2>{DETAIL.nombre}</h2>
+            <span>Pokedex: {DETAIL.id}</span>
+            {DETAIL.imagen ? (
+              <img src={DETAIL.imagen[0]} alt={DETAIL.id} />
+            ) : (
+              <span>Sin imagen</span>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   ) : (
     <img src={Loader} alt='Loader' />
   );

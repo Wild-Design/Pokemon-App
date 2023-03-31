@@ -7,6 +7,8 @@ import {
 } from "../../features/pokemonsSlice";
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
+import Logo from "../../assets/logo.png";
 
 const NavBar = () => {
   const dispatch = useAppDispatch();
@@ -28,14 +30,12 @@ const NavBar = () => {
 
   return (
     <nav>
-      <h2>Pokemon App</h2>
-
+      <img src={Logo} alt='Logo' />
       <Search
         labelName={"Busca un pokemon"}
         buttonName={"🔍"}
         actionName={getAllPokemons}
       />
-
       <label htmlFor='order'>Ordenar por:</label>
       <select onChange={(event) => handleSelectChange(event)} id='order'>
         <option value={""}>--Elije una opción--</option>
@@ -44,7 +44,6 @@ const NavBar = () => {
         <option value='MAYOR-ATAQUE'>Mayor Ataque</option>
         <option value='MENOR-ATAQUE'>Menor Ataque</option>
       </select>
-
       <button
         onClick={() => {
           dispatch(getAllPokemons());
@@ -52,6 +51,10 @@ const NavBar = () => {
       >
         Resetear
       </button>
+
+      <Link to={"/create"}>
+        <button>Crear Pokemon</button>
+      </Link>
 
       <label htmlFor='filterTypes'>Filtrar por tipo:</label>
       <select
@@ -62,14 +65,11 @@ const NavBar = () => {
       >
         <option value=''>--Elige un tipo--</option>
         {ALL_TYPES.length ? (
-          ALL_TYPES.map((tipo: any) => (
-            <option key={tipo.id}>{tipo.nombre}</option>
-          ))
+          ALL_TYPES.map((tipo: any) => <option key={tipo.id}>{tipo.id}</option>)
         ) : (
           <option value=''></option>
         )}
       </select>
-
       <label htmlFor='filter'>Filtrar por:</label>
       <select
         onChange={(event) => {

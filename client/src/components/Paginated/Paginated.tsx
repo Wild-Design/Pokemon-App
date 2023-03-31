@@ -1,4 +1,4 @@
-import { useAppDispatch } from "../../app/hooks";
+import style from "./Paginated.module.css";
 interface Props {
   elementsPerPage: any;
   allLength: number;
@@ -12,15 +12,15 @@ const Paginated = ({ elementsPerPage, allLength, paginated }: Props) => {
   }
 
   return (
-    <ul>
-      {numbersPerPage?.map((number) => {
+    <div className={style.paginatedContainer}>
+      {numbersPerPage?.map((number: number) => {
         return (
-          <li key={number}>
-            <button onClick={() => paginated(number)}>{number}</button>
-          </li>
+          <button key={number} onClick={() => paginated(number)}>
+            {number}
+          </button>
         );
       })}
-    </ul>
+    </div>
   );
 };
 

@@ -13,7 +13,7 @@ const getAllTypes = async (req: Request, res: Response) => {
       const API: any = await axios.get("https://pokeapi.co/api/v2/type");
 
       const API_TYPES = API.data.results.map((type: any) => {
-        return { nombre: type.name };
+        return { id: type.name, nombre: type.name };
       });
 
       await Tipo.bulkCreate(API_TYPES);

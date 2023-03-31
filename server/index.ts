@@ -11,7 +11,7 @@ const TypesRouter = require("./src/routes/types.routes");
 
 server.use(
   cors({
-    origin: "http://127.0.0.1:5173",
+    origin: "*",
   })
 );
 server.use(express.json());
