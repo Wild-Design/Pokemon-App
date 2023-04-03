@@ -4,6 +4,9 @@ import allTypes from "../../utils/imgTypes";
 import { useState } from "react";
 import { createPokemon } from "../../features/pokemonsSlice";
 import { useAppDispatch } from "../../app/hooks";
+import CardAlert from "../../components/CardAlert/CardAlert";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const types: string[] = [];
 for (let i: number = 0; i < allTypes.length - 2; i++) {
@@ -12,6 +15,7 @@ for (let i: number = 0; i < allTypes.length - 2; i++) {
 
 const CreatePokemon: React.FC = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   interface Body {
     nombre: string;
@@ -61,6 +65,8 @@ const CreatePokemon: React.FC = () => {
     peso: "",
     TipoId: "",
   });
+
+  const [created, setCreated] = useState(false);
 
   const VALIDATOR = (event: React.FocusEvent<HTMLInputElement>) => {
     const PROPERTY = event.target.name;
@@ -144,16 +150,84 @@ const CreatePokemon: React.FC = () => {
 
   const handleSubmit = async (event: SubmitEvent) => {
     event.preventDefault();
-    const create = await dispatch(createPokemon(body));
-    if (create) {
-      console.log("Si");
+    const {
+      nombre,
+      imagen,
+      vida,
+      ataque,
+      defensa,
+      velocidad,
+      altura,
+      peso,
+      TipoId,
+    }: Body = body;
+    if (
+      nombre &&
+      imagen.length &&
+      vida &&
+      ataque &&
+      defensa &&
+      velocidad &&
+      altura &&
+      peso &&
+      TipoId.length
+    ) {
+      const create = await dispatch(createPokemon(body));
+      if (create) {
+        let timerInterval: any;
+        Swal.fire({
+          title: "Pokemon creado correctamente 😁",
+          html: "Redireccionando al Home.",
+          timer: 5000,
+          timerProgressBar: true,
+          didOpen: () => {
+            Swal.showLoading();
+            const b: any = Swal.getHtmlContainer()?.querySelector("b");
+            timerInterval = setInterval(() => {
+              b.textContent = Swal.getTimerLeft();
+            }, 100);
+          },
+          willClose: () => {
+            clearInterval(timerInterval);
+          },
+        }).then((result) => {
+          if (result.dismiss === Swal.DismissReason.timer) {
+            navigate("/home");
+          }
+        });
+      } else {
+        let timerInterval: any;
+        Swal.fire({
+          title: "⛔Error, no se pudo crear el Pokemon, intenta mas tarde!⛔",
+          html: "Redireccionando al Home.",
+          timer: 5000,
+          timerProgressBar: true,
+          didOpen: () => {
+            Swal.showLoading();
+            const b: any = Swal.getHtmlContainer()?.querySelector("b");
+            timerInterval = setInterval(() => {
+              b.textContent = Swal.getTimerLeft();
+            }, 100);
+          },
+          willClose: () => {
+            clearInterval(timerInterval);
+          },
+        }).then((result) => {
+          if (result.dismiss === Swal.DismissReason.timer) {
+            navigate("/home");
+          }
+        });
+      }
     } else {
-      console.log("No");
+      Swal.fire(
+        "¡Debes completar todos los campos del formulario antes de continuar!"
+      );
     }
   };
 
   return (
     <form onSubmit={handleSubmit}>
+      <CardAlert />
       <label htmlFor='nombre'>
         Nombre
         <input
@@ -274,7 +348,7 @@ const CreatePokemon: React.FC = () => {
           {error.TipoId}
         </p>
       </>
-      <button>Crear</button>
+      <button type='submit'>Crear</button>
     </form>
   );
 };
