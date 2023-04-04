@@ -24,15 +24,27 @@ module.exports = (DATA_BASE: Sequelize) => {
       },
       vida: {
         type: DataTypes.FLOAT,
+        validate: {
+          max: 250,
+        },
       },
       ataque: {
         type: DataTypes.FLOAT,
+        validate: {
+          max: 250,
+        },
       },
       defensa: {
         type: DataTypes.FLOAT,
+        validate: {
+          max: 250,
+        },
       },
       velocidad: {
         type: DataTypes.FLOAT,
+        validate: {
+          max: 250,
+        },
       },
       altura: {
         type: DataTypes.FLOAT,
