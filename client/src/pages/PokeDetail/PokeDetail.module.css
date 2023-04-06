@@ -29,12 +29,43 @@
 }
 .container {
   display: flex;
+  height: fit-content;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  min-height: 100vh;
   overflow: hidden;
 }
+.prevNextContainer {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.none {
+  display: none !important;
+}
+.prevNextContainer button {
+  width: 150px;
+  font-size: 25px;
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+  border: 1px solid #000;
+  border-radius: 15px;
+  outline: none;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  -ms-border-radius: 15px;
+  -o-border-radius: 15px;
+  background: linear-gradient(to right, #f12711e6, #f5af19);
+}
+.prevNextContainer button:first-child {
+  margin-right: 30px;
+}
+
+.prevNextContainer button:nth-of-type(2) {
+  margin-left: 30px;
+}
+
 .pokemonContainer {
   max-width: 1000px;
   display: flex;
@@ -60,16 +91,17 @@
 .statsContainer {
   display: flex;
   flex-wrap: wrap;
-  width: 370px; /*Hechar ojo luego*/
+  width: 370px;
   height: 200px;
   font-size: 20px;
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-family: "Varela Round", sans-serif;
   font-weight: 800;
   color: #000;
 }
 .spanAndPorsentualContainer {
   display: flex;
   justify-content: space-between;
+  min-width: 65%;
   width: 100%;
   align-items: center;
 }
@@ -91,7 +123,7 @@
   display: flex;
   gap: 20px;
   font-size: 20px;
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-family: "Varela Round", sans-serif;
   font-weight: 800;
   margin-top: 20px;
   margin-bottom: 20px;
@@ -109,7 +141,7 @@
   text-align: center;
   font-size: 20px;
   font-weight: 800;
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-family: "Varela Round", sans-serif;
   color: #000;
 }
 .typesContainer img {
@@ -126,7 +158,7 @@
 }
 
 .rightContainer h2 {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Varela Round", sans-serif;
   font-size: 60px;
   background: linear-gradient(90deg, #430087, #2407ff);
   color: transparent;
@@ -144,7 +176,7 @@
 .rightContainer span {
   font-size: 20px;
   font-weight: 800;
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-family: "Varela Round", sans-serif;
   color: #404040;
 }
 .rightContainer img {
@@ -163,5 +195,11 @@
   100% {
     filter: hue-rotate(360deg);
     -webkit-filter: hue-rotate(360deg);
+  }
+}
+
+@media screen and (max-width: 815px) {
+  .pokemonContainer {
+    flex-direction: column-reverse;
   }
 }

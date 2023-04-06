@@ -27,30 +27,36 @@ module.exports = (DATA_BASE: Sequelize) => {
         validate: {
           max: 250,
         },
+        allowNull: false,
       },
       ataque: {
         type: DataTypes.FLOAT,
         validate: {
           max: 250,
         },
+        allowNull: false,
       },
       defensa: {
         type: DataTypes.FLOAT,
         validate: {
           max: 250,
         },
+        allowNull: false,
       },
       velocidad: {
         type: DataTypes.FLOAT,
         validate: {
           max: 250,
         },
+        allowNull: false,
       },
       altura: {
         type: DataTypes.FLOAT,
+        allowNull: false,
       },
       peso: {
         type: DataTypes.FLOAT,
+        allowNull: false,
       },
       db: {
         type: DataTypes.BOOLEAN,

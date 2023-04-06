@@ -3,6 +3,7 @@ import style from "./PokeCard.module.css";
 import { useNavigate } from "react-router-dom";
 import { BsStars } from "react-icons/bs";
 import { CgSpinnerTwoAlt } from "react-icons/cg";
+import TYPES from "../../utils/importTypes";
 
 interface Props {
   id: string | number;
@@ -16,6 +17,8 @@ import imgTypes from "../../utils/imgTypes";
 //
 
 const PokeCard = ({ id, imagen, nombre, tipos }: Props) => {
+  console.log(id);
+  
   const navigate = useNavigate();
 
   const [indexImage, setIndexImage] = useState(0);
@@ -50,18 +53,18 @@ const PokeCard = ({ id, imagen, nombre, tipos }: Props) => {
         )}
 
         <div className={style.typesContainer}>
-          {tipos?.map((tipos: any, index: number) => {
-            const URL: any = imgTypes.find((e) => {
-              if (e.nombre === tipos) {
-                return e.imagen;
-              }
-            });
+          {tipos?.map((tipo: any) => {
             return (
               <img
+                key={tipo}
                 className={style.typeImg}
-                key={index}
-                src={URL.imagen}
-                alt={URL.nombre}
+                src={TYPES.find((img) => {
+                  if (img.includes(tipo)) {
+                    return img;
+                  }
+                  img;
+                })}
+                alt={`imagen: ${tipo}`}
               />
             );
           })}

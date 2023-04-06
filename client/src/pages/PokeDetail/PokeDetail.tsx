@@ -5,20 +5,17 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { pokemonDetail } from "../../features/pokemonsSlice";
 import Loader from "../../assets/loaders/loading.45600eb9.gif";
 import { useNavigate } from "react-router-dom";
-import imgTypes from "../../utils/imgTypes";
 import Fondo from "../../assets/pokemon-wallpapers-3.png";
 import { HiOutlineArrowLeft } from "react-icons/hi";
+import TYPES from "../../utils/importTypes";
 
 const PokeDetail: React.FC = () => {
-  const { id } = useParams();
+  const { id }: any = useParams();
   const dispatch = useAppDispatch();
 
   const DETAIL: any = useAppSelector(
     (state) => state.pokemonsSlice.pokemonDetail
   );
-  useEffect(() => {
-    dispatch(pokemonDetail(id));
-  }, [dispatch]);
 
   const [vida, setVida] = useState(0);
   const [ataque, setAtaque] = useState(0);
@@ -38,6 +35,27 @@ const PokeDetail: React.FC = () => {
     navigate("/home");
   };
 
+  const [prevNext, setPrevNext] = useState(id.length > 4 ? id : parseInt(id));
+  const [db, setDb] = useState(false);
+
+  const handlePrev = () => {
+    if (prevNext > 1) {
+      setPrevNext(prevNext - 1);
+    }
+  };
+  const handleNext = () => {
+    if (prevNext < 1010) {
+      setPrevNext(prevNext + 1);
+    }
+  };
+  useEffect(() => {
+    if (id.length > 4) {
+      setDb(true);
+    }
+    dispatch(pokemonDetail(prevNext));
+    navigate(`/pokedetail/${prevNext}`);
+  }, [dispatch, prevNext]);
+
   return Object.entries(DETAIL).length ? (
     <>
       <span className={style.back} onClick={backHome}>
@@ -45,6 +63,10 @@ const PokeDetail: React.FC = () => {
       </span>
       <img className={style.fondo} src={Fondo} alt='Fondo' />
       <div className={style.container}>
+        <div className={!db ? style.prevNextContainer : style.none}>
+          <button onClick={handlePrev}>🡸 Anterior</button>
+          <button onClick={handleNext}>🡺 Siguiente</button>
+        </div>
         <div className={style.pokemonContainer}>
           <div className={style.coso}>
             <div className={style.statsContainer}>
@@ -103,24 +125,23 @@ const PokeDetail: React.FC = () => {
             </div>
             <div className={style.typesContainer}>
               <p>Tipos:</p>
-              {DETAIL.tipos?.map((tipos: any, index: number) => {
-                const URL: any = imgTypes.find((e) => {
-                  if (e.nombre === tipos) {
-                    return e.imagen;
-                  }
-                });
+              {DETAIL.tipos?.map((tipos: any) => {
                 return (
                   <img
+                    key={tipos}
                     className={style.type}
-                    key={index}
-                    src={URL.imagen}
-                    alt={URL.nombre}
+                    src={TYPES.find((img) => {
+                      if (img.includes(tipos)) {
+                        return img;
+                      }
+                      img;
+                    })}
+                    alt={`imagen: ${tipos}`}
                   />
                 );
               })}
             </div>
           </div>
-
           <div className={style.rightContainer}>
             <h2>{DETAIL.nombre}</h2>
             <span>Pokedex: {DETAIL.id}</span>
