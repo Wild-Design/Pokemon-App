@@ -8,6 +8,8 @@ import { useNavigate } from "react-router-dom";
 import Fondo from "../../assets/pokemon-wallpapers-3.png";
 import { HiOutlineArrowLeft } from "react-icons/hi";
 import TYPES from "../../utils/importTypes";
+import { BsStars } from "react-icons/bs";
+import { CgSpinnerTwoAlt } from "react-icons/cg";
 
 const PokeDetail: React.FC = () => {
   const { id }: any = useParams();
@@ -37,6 +39,17 @@ const PokeDetail: React.FC = () => {
 
   const [prevNext, setPrevNext] = useState(id.length > 4 ? id : parseInt(id));
   const [db, setDb] = useState(false);
+
+  const [indexImage, setIndexImage] = useState(0);
+  const [normalShiny, setNormalShiny] = useState("Shiny");
+  const handleIndexImage = () => {
+    normalShiny === "Shiny"
+      ? setNormalShiny("Normal")
+      : setNormalShiny("Shiny");
+
+    if (DETAIL.imagen[1])
+      return indexImage === 0 ? setIndexImage(1) : setIndexImage(0);
+  };
 
   const handlePrev = () => {
     if (prevNext > 1) {
@@ -145,8 +158,27 @@ const PokeDetail: React.FC = () => {
           <div className={style.rightContainer}>
             <h2>{DETAIL.nombre}</h2>
             <span>Pokedex: {DETAIL.id}</span>
+            {!DETAIL.imagen || !DETAIL.imagen[1] ? (
+              <span className={style.noShiny} onClick={handleIndexImage}>
+                {<BsStars />}
+              </span>
+            ) : (
+              <span
+                className={
+                  normalShiny === "Shiny"
+                    ? style.buttonShiny
+                    : style.buttonNormal
+                }
+                onClick={handleIndexImage}
+              >
+                {normalShiny === "Shiny" ? <BsStars /> : <CgSpinnerTwoAlt />}
+              </span>
+            )}
             {DETAIL.imagen ? (
-              <img src={DETAIL.imagen[0]} alt={DETAIL.id} />
+              <img
+                src={DETAIL.imagen[indexImage] || DETAIL.imagen[0]}
+                alt={DETAIL.id}
+              />
             ) : (
               <span>Sin imagen</span>
             )}

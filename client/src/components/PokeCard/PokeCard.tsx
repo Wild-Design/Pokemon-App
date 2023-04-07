@@ -12,13 +12,7 @@ interface Props {
   tipos: any[];
 }
 
-//
-import imgTypes from "../../utils/imgTypes";
-//
-
 const PokeCard = ({ id, imagen, nombre, tipos }: Props) => {
-  console.log(id);
-  
   const navigate = useNavigate();
 
   const [indexImage, setIndexImage] = useState(0);
@@ -51,7 +45,6 @@ const PokeCard = ({ id, imagen, nombre, tipos }: Props) => {
             {normalShiny === "Shiny" ? <BsStars /> : <CgSpinnerTwoAlt />}
           </span>
         )}
-
         <div className={style.typesContainer}>
           {tipos?.map((tipo: any) => {
             return (
