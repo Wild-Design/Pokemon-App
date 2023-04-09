@@ -3,19 +3,6 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "../app/store";
 import axios from "axios";
 
-// interface PokeObj {
-//   id: any;
-//   nombre: string;
-//   imagen: string;
-//   tipos: string[];
-//   vida: string | number;
-//   ataque: string | number;
-//   defensa: string | number;
-//   velocidad: string | number;
-//   altura: string | number;
-//   peso: string | number;
-// }
-
 interface ModelCreate {
   nombre: string;
   imagen: any;
@@ -116,8 +103,10 @@ export const getAllPokemons = (name?: string) => {
         : await axios.get(`http://localhost:3001/pokemons`);
       const RESPONSE = FETCH.data;
       dispatch(getPokemons(RESPONSE));
+      return true;
     } catch (error: any) {
       console.log(error.message);
+      return false;
     }
   };
 };
@@ -153,11 +142,12 @@ export const getAllTypes = () => {
 };
 
 export const createPokemon = (body: ModelCreate) => {
-  return async (dispatch: any) => {
+  return async () => {
     try {
       await axios.post("http://localhost:3001/pokemons", body);
       return true;
     } catch (error: any) {
+      console.log(error.message);
       return false;
     }
   };

@@ -4,14 +4,14 @@
   align-items: center;
   border: 1px solid black;
   padding: 10px;
-  width: 450px;
+  width: 380px;
   height: 250px;
   border-radius: 20px;
   -webkit-border-radius: 20px;
   -moz-border-radius: 20px;
   -ms-border-radius: 20px;
   -o-border-radius: 20px;
-  background: linear-gradient(to right, #636363, #a2ab58);
+  background: linear-gradient(to right, #636363e2, #a1ab58e2);
   overflow: hidden;
 }
 .cardContainer h3 {
@@ -46,6 +46,7 @@
   animation: cambiarColor 3s infinite ease-out;
   -webkit-animation: cambiarColor 3s infinite ease-out;
 }
+
 .buttonNormal {
   font-size: 60px;
   border-radius: 50%;
@@ -79,13 +80,13 @@
     color: rgb(229, 255, 0);
   }
   25% {
-    color: rgb(128, 255, 0);
+    color: rgb(115, 225, 255);
   }
   50% {
-    color: rgb(29, 191, 0);
+    color: rgb(229, 255, 0);
   }
   75% {
-    color: rgb(153, 234, 3);
+    color: rgb(115, 225, 255);
   }
   100% {
     color: rgb(229, 255, 0);

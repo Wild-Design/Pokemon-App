@@ -1,5 +1,6 @@
 import { ChangeEvent, useState } from "react";
 import { useAppDispatch } from "../../app/hooks";
+import style from "./Search.module.css";
 
 interface Props {
   labelName: string;
@@ -20,9 +21,11 @@ const Search = ({ labelName, buttonName, actionName }: Props) => {
   };
 
   return (
-    <div>
-      <label htmlFor='search'>{labelName}</label>
-      <input onChange={handleInputChange} id='search' type='search' />
+    <div className={style.searchContainer}>
+      <div className={style.input}>
+        <label htmlFor='search'>{labelName}</label>
+        <input onChange={handleInputChange} id='search' type='search' />
+      </div>
       <button onClick={handleDispatch}>{buttonName}</button>
     </div>
   );

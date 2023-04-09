@@ -30,7 +30,7 @@ const PokeCard = ({ id, imagen, nombre, tipos }: Props) => {
   return (
     <div className={style.cardContainer}>
       <div className={style.info}>
-        <h3>{nombre}</h3>
+        <h3 className={style.animado}>{nombre}</h3>
         {!imagen[1] ? (
           <span className={style.noShiny} onClick={handleIndexImage}>
             {<BsStars />}

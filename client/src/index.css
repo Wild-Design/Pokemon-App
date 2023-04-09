@@ -5,3 +5,8 @@
   user-select: none;
   font-family: "Varela Round", sans-serif;
 }
+
+::-webkit-scrollbar {
+  width: 0px;
+  background-color: transparent; /* Color de fondo de la barra de scroll */
+}

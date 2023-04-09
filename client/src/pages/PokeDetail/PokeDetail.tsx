@@ -10,6 +10,7 @@ import { HiOutlineArrowLeft } from "react-icons/hi";
 import TYPES from "../../utils/importTypes";
 import { BsStars } from "react-icons/bs";
 import { CgSpinnerTwoAlt } from "react-icons/cg";
+import Swal from "sweetalert2";
 
 const PokeDetail: React.FC = () => {
   const { id }: any = useParams();
@@ -69,6 +70,21 @@ const PokeDetail: React.FC = () => {
     navigate(`/pokedetail/${prevNext}`);
   }, [dispatch, prevNext]);
 
+  const [search, setSearch] = useState(prevNext);
+  const handleInputChange = (event: any) => {
+    const value = event.target.value;
+    setSearch(value);
+  };
+  const handleSearch = (event: any) => {
+    event.preventDefault();
+
+    search[0] == 0 || search <= 0 || search >= 1011
+      ? Swal.fire(
+          "En total existen 1010 Pokémon. \n busca solo entre esos numeros"
+        )
+      : setPrevNext(parseInt(search));
+  };
+
   return Object.entries(DETAIL).length ? (
     <>
       <span className={style.back} onClick={backHome}>
@@ -76,6 +92,17 @@ const PokeDetail: React.FC = () => {
       </span>
       <img className={style.fondo} src={Fondo} alt='Fondo' />
       <div className={style.container}>
+        <form onSubmit={handleSearch}>
+          <label htmlFor='pokedex'>
+            <input
+              className={style.coso}
+              onChange={handleInputChange}
+              type='number'
+              id='pokedex'
+              placeholder='N° Pokedex 🔍'
+            />
+          </label>
+        </form>
         <div className={!db ? style.prevNextContainer : style.none}>
           <button onClick={handlePrev}>🡸 Anterior</button>
           <button onClick={handleNext}>🡺 Siguiente</button>
@@ -138,7 +165,7 @@ const PokeDetail: React.FC = () => {
             </div>
             <div className={style.typesContainer}>
               <p>Tipos:</p>
-              {DETAIL.tipos?.map((tipos: any) => {
+              {DETAIL.tipos?.map((tipos: string) => {
                 return (
                   <img
                     key={tipos}

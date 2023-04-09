@@ -10,6 +10,7 @@
   -moz-transition: 0.5s;
   -ms-transition: 0.5s;
   -o-transition: 0.5s;
+  z-index: 10;
 }
 .back:hover {
   transform: scale(1.5);
@@ -19,13 +20,15 @@
   -o-transform: scale(1.5);
   color: #fff;
   opacity: 0.6;
+  z-index: 10;
 }
 .fondo {
   position: fixed;
   width: 100vw;
   height: 100vh;
-  z-index: -10;
+  z-index: -1;
   object-fit: cover;
+  z-index: 1;
 }
 .container {
   display: flex;
@@ -36,13 +39,43 @@
   min-height: 100vh;
   overflow: hidden;
   padding: 20px;
+  z-index: 10;
 }
+.container label {
+  display: inline-block;
+  font-size: 25px;
+  text-align: center;
+  margin: 20px;
+  z-index: 10;
+}
+.container input {
+  width: 150px;
+  height: 50px;
+  padding: 10px;
+  font-size: 18px;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  text-align: center;
+  background: #f5af19e6;
+  z-index: 10;
+}
+.container input::placeholder {
+  color: #404040;
+  font-weight: 600;
+  z-index: 10;
+}
+
 .prevNextContainer {
   text-align: center;
   margin-bottom: 20px;
+  z-index: 10;
 }
 .none {
   display: none;
+  z-index: 10;
 }
 .prevNextContainer button {
   width: 150px;
@@ -64,18 +97,23 @@
   -moz-transition: 0.5s;
   -ms-transition: 0.5s;
   -o-transition: 0.5s;
+  z-index: 10;
 }
 .prevNextContainer button:hover {
   color: #d9d9d9;
+  z-index: 10;
 }
 .prevNextContainer button:active {
   background: linear-gradient(to right, #f5af19, #f12711e6);
+  z-index: 10;
 }
 .prevNextContainer button:first-child {
   margin-right: 30px;
+  z-index: 10;
 }
 .prevNextContainer button:nth-of-type(2) {
   margin-left: 30px;
+  z-index: 10;
 }
 
 .pokemonContainer {
@@ -93,12 +131,17 @@
   box-shadow: -9px 10px 5px 0px rgba(0, 0, 0, 0.75);
   -webkit-box-shadow: -9px 10px 5px 0px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: -9px 10px 5px 0px rgba(0, 0, 0, 0.75);
+  z-index: 10;
+}
+form {
+  z-index: 10;
 }
 .coso {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  z-index: 20;
 }
 .statsContainer {
   display: flex;
@@ -107,8 +150,9 @@
   height: 200px;
   font-size: 20px;
   font-family: "Varela Round", sans-serif;
-  font-weight: 500;
-  color: #e4e4e4;
+  font-weight: 600;
+  color: #000000;
+  z-index: 10;
 }
 .spanAndPorsentualContainer {
   display: flex;
@@ -116,6 +160,7 @@
   min-width: 65%;
   width: 100%;
   align-items: center;
+  z-index: 10;
 }
 .porcentualContainer {
   width: 230px;
@@ -130,6 +175,7 @@
   box-shadow: -5px 4px 5px 0px rgba(0, 0, 0, 0.75);
   -webkit-box-shadow: -5px 4px 5px 0px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: -5px 4px 5px 0px rgba(0, 0, 0, 0.75);
+  z-index: 10;
 }
 .pesoAltura {
   display: flex;
@@ -137,7 +183,7 @@
   font-size: 20px;
   font-family: "Varela Round", sans-serif;
   font-weight: 800;
-  margin-top: 20px;
+  margin-top: 40px;
   margin-bottom: 20px;
   background-color: #cfb1ff;
   border-radius: 10px;
@@ -147,6 +193,7 @@
   -o-border-radius: 10px;
   padding: 10px;
   color: #404040;
+  z-index: 10;
 }
 
 .typesContainer {
@@ -155,11 +202,13 @@
   font-weight: 800;
   font-family: "Varela Round", sans-serif;
   color: #000;
+  z-index: 10;
 }
 .typesContainer img {
   margin: 5px;
   width: 50px;
   filter: drop-shadow(-6px 8px 8px #000);
+  z-index: 10;
 }
 
 .rightContainer {
@@ -167,6 +216,7 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
+  z-index: 10;
 }
 
 .rightContainer h2 {
@@ -181,20 +231,53 @@
   animation: text 5s linear infinite;
   -webkit-animation: text 5s linear infinite;
   letter-spacing: 4px;
+  z-index: 10;
 }
 .rightContainer h2::first-letter {
   text-transform: uppercase;
+  z-index: 10;
+}
+.rightContainer h2 {
+  font-size: 60px;
+  text-align: center;
+  background-image: linear-gradient(
+    45deg,
+    #3c5966,
+    #4d6e27,
+    #2424aa,
+    #be3b13,
+    #b4281e,
+    #000000,
+    #780f8b
+  );
+  background-size: 200% 200%;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: fondo-animado 5s linear infinite;
+  -webkit-animation: fondo-animado 8s linear infinite;
+}
+
+@keyframes fondo-animado {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: -200% -200%;
+  }
 }
 .rightContainer span {
   font-size: 20px;
   font-weight: 800;
   font-family: "Varela Round", sans-serif;
   color: #404040;
+  z-index: 10;
 }
 .noShiny {
   font-size: 80px !important;
   color: #777;
   cursor: no-drop;
+  z-index: 10;
 }
 
 .buttonShiny {
@@ -210,6 +293,7 @@
   color: rgb(2, 255, 32);
   animation: cambiarColor 5s infinite ease-out;
   -webkit-animation: cambiarColor 5s infinite ease-out;
+  z-index: 10;
 }
 .buttonNormal {
   font-size: 80px !important;
@@ -220,6 +304,7 @@
   -o-border-radius: 50%;
   cursor: pointer;
   color: #404040;
+  z-index: 10;
 }
 
 .rightContainer img {
@@ -228,6 +313,7 @@
   filter: drop-shadow(-6px 8px 8px #000);
   object-fit: cover;
   -webkit-filter: drop-shadow(-6px 8px 8px #000);
+  z-index: 10;
 }
 
 @keyframes text {
