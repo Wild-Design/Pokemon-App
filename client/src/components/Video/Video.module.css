@@ -1,0 +1,22 @@
+.videoBackground {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10;
+}
+
+@media (max-width: 768px) {
+  .videoBackground {
+    width: 150vw;
+    height: 150vh;
+  }
+}
+
+@media (min-width: 1440px) {
+  .videoBackground {
+    width: 80vw;
+    height: 80vh;
+  }
+}

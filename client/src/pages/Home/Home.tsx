@@ -1,15 +1,12 @@
-import { Link } from "react-router-dom";
 import NavBar from "../../components/NavBar/NavBar";
 import PokeCards from "../../components/PokeCards/PokeCards";
+import style from "./Home.module.css";
 
 const Home: React.FC = () => {
   return (
-    <div className='App'>
+    <div className={style.home}>
       <NavBar />
       <PokeCards />
-      <Link to={"/"}>
-        <button>Landing</button>
-      </Link>
     </div>
   );
 };

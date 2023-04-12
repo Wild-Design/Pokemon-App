@@ -8,6 +8,9 @@ import { useNavigate } from "react-router-dom";
 import Fondo from "../../assets/pokemon-wallpapers-3.png";
 import { HiOutlineArrowLeft } from "react-icons/hi";
 import TYPES from "../../utils/importTypes";
+import { BsStars } from "react-icons/bs";
+import { CgSpinnerTwoAlt } from "react-icons/cg";
+import Swal from "sweetalert2";
 
 const PokeDetail: React.FC = () => {
   const { id }: any = useParams();
@@ -38,6 +41,17 @@ const PokeDetail: React.FC = () => {
   const [prevNext, setPrevNext] = useState(id.length > 4 ? id : parseInt(id));
   const [db, setDb] = useState(false);
 
+  const [indexImage, setIndexImage] = useState(0);
+  const [normalShiny, setNormalShiny] = useState("Shiny");
+  const handleIndexImage = () => {
+    normalShiny === "Shiny"
+      ? setNormalShiny("Normal")
+      : setNormalShiny("Shiny");
+
+    if (DETAIL.imagen[1])
+      return indexImage === 0 ? setIndexImage(1) : setIndexImage(0);
+  };
+
   const handlePrev = () => {
     if (prevNext > 1) {
       setPrevNext(prevNext - 1);
@@ -56,6 +70,21 @@ const PokeDetail: React.FC = () => {
     navigate(`/pokedetail/${prevNext}`);
   }, [dispatch, prevNext]);
 
+  const [search, setSearch] = useState(prevNext);
+  const handleInputChange = (event: any) => {
+    const value = event.target.value;
+    setSearch(value);
+  };
+  const handleSearch = (event: any) => {
+    event.preventDefault();
+
+    search[0] == 0 || search <= 0 || search >= 1011
+      ? Swal.fire(
+          "En total existen 1010 Pokémon. \n busca solo entre esos numeros"
+        )
+      : setPrevNext(parseInt(search));
+  };
+
   return Object.entries(DETAIL).length ? (
     <>
       <span className={style.back} onClick={backHome}>
@@ -63,6 +92,17 @@ const PokeDetail: React.FC = () => {
       </span>
       <img className={style.fondo} src={Fondo} alt='Fondo' />
       <div className={style.container}>
+        <form onSubmit={handleSearch}>
+          <label htmlFor='pokedex'>
+            <input
+              className={style.coso}
+              onChange={handleInputChange}
+              type='number'
+              id='pokedex'
+              placeholder='N° Pokedex 🔍'
+            />
+          </label>
+        </form>
         <div className={!db ? style.prevNextContainer : style.none}>
           <button onClick={handlePrev}>🡸 Anterior</button>
           <button onClick={handleNext}>🡺 Siguiente</button>
@@ -125,7 +165,7 @@ const PokeDetail: React.FC = () => {
             </div>
             <div className={style.typesContainer}>
               <p>Tipos:</p>
-              {DETAIL.tipos?.map((tipos: any) => {
+              {DETAIL.tipos?.map((tipos: string) => {
                 return (
                   <img
                     key={tipos}
@@ -145,8 +185,27 @@ const PokeDetail: React.FC = () => {
           <div className={style.rightContainer}>
             <h2>{DETAIL.nombre}</h2>
             <span>Pokedex: {DETAIL.id}</span>
+            {!DETAIL.imagen || !DETAIL.imagen[1] ? (
+              <span className={style.noShiny} onClick={handleIndexImage}>
+                {<BsStars />}
+              </span>
+            ) : (
+              <span
+                className={
+                  normalShiny === "Shiny"
+                    ? style.buttonShiny
+                    : style.buttonNormal
+                }
+                onClick={handleIndexImage}
+              >
+                {normalShiny === "Shiny" ? <BsStars /> : <CgSpinnerTwoAlt />}
+              </span>
+            )}
             {DETAIL.imagen ? (
-              <img src={DETAIL.imagen[0]} alt={DETAIL.id} />
+              <img
+                src={DETAIL.imagen[indexImage] || DETAIL.imagen[0]}
+                alt={DETAIL.id}
+              />
             ) : (
               <span>Sin imagen</span>
             )}
@@ -155,7 +214,10 @@ const PokeDetail: React.FC = () => {
       </div>
     </>
   ) : (
-    <img src={Loader} alt='Loader' />
+    <>
+      <img className={style.fondo} src={Fondo} alt='Fondo' />
+      <img className={style.loader} src={Loader} alt='Loader' />
+    </>
   );
 };
 

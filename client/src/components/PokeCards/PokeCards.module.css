@@ -1,6 +1,47 @@
-.cardsContainer {
+.container {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  /* background-image: url("../../assets/pikachu.jpg");
+  background-attachment: fixed;
+  background-repeat: no-repeat; */
+  padding: 10px;
+  min-height: 100vh;
+}
+.cardsContainer {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   justify-content: center;
-  gap: 20px;
+  justify-items: center;
+  gap: 10px;
+  padding: 1;
+}
+
+.loaderContainer {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  height: 50vh;
+}
+.loaderContainer p {
+  font-size: 60px;
+  color: #fff;
+}
+
+@media screen and (max-width: 1584px) {
+  .cardsContainer {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media screen and (max-width: 1186px) {
+  .cardsContainer {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media screen and (max-width: 795px) {
+  .cardsContainer {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }
