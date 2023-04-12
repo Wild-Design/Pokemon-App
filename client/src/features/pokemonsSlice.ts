@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
-import type { RootState } from "../app/store";
+// import type { PayloadAction } from "@reduxjs/toolkit";
+// import type { RootState } from "../app/store";
 import axios from "axios";
 
 interface ModelCreate {
@@ -134,7 +134,7 @@ export const getAllTypes = () => {
     try {
       const GET_TYPES = await axios.get("http://localhost:3001/types");
       const TYPES = GET_TYPES.data;
-      const arr: any[] = [];
+      const arr: string[] = [];
       for (let i: number = 0; i < TYPES.length - 2; i++) {
         arr.push(TYPES[i]);
       }

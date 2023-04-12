@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import TYPES from "../../utils/importTypes";
 import { HiOutlineArrowLeft } from "react-icons/hi";
+import shadow from "../../assets/shadowPicachu.png";
 
 const types: string[] = [];
 for (let i: number = 0; i < allTypes.length - 2; i++) {
@@ -76,7 +77,7 @@ const CreatePokemon: React.FC = () => {
         : setError({ ...error, nombre: "" });
     }
     if (PROPERTY === "imagen") {
-      !body.imagen.length
+      !body.imagen.length || !body.imagen[0]?.length
         ? setError({ ...error, imagen: "Falta completar" })
         : setError({ ...error, imagen: "" });
     }
@@ -139,12 +140,6 @@ const CreatePokemon: React.FC = () => {
       });
     }
   };
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { value, name } = event.target;
-    name === "imagen"
-      ? setBody({ ...body, imagen: [value] })
-      : setBody({ ...body, [name]: value });
-  };
 
   const handleSubmit = async (event: SubmitEvent) => {
     event.preventDefault();
@@ -176,6 +171,7 @@ const CreatePokemon: React.FC = () => {
     } else if (
       nombre &&
       imagen.length &&
+      imagen[0]?.length &&
       vida &&
       ataque &&
       defensa &&
@@ -237,6 +233,17 @@ const CreatePokemon: React.FC = () => {
     }
   };
 
+  const [preview, setPreview] = useState(shadow);
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { value, name } = event.target;
+    if (name === "imagen") {
+      setPreview(value);
+      setBody({ ...body, imagen: [value] });
+    } else {
+      setBody({ ...body, [name]: value });
+    }
+  };
+
   return (
     <>
       <span className={style.back} onClick={() => navigate("/home")}>
@@ -272,7 +279,7 @@ const CreatePokemon: React.FC = () => {
             </label>
           </div>
           <div className={style.dualContainer}>
-            <div>
+            <div className={style.izquierda}>
               <label htmlFor='vida'>
                 Vida
                 <input
@@ -313,7 +320,10 @@ const CreatePokemon: React.FC = () => {
                 <p className={error.defensa && style.error}>{error.defensa}</p>
               </label>
             </div>
-            <div>
+            <div className={style.preview}>
+              <img src={preview ? preview : shadow} alt='Preview' />
+            </div>
+            <div className={style.derecha}>
               <label htmlFor='velocidad'>
                 Velocidad
                 <input
