@@ -100,6 +100,7 @@ const PokeDetail: React.FC = () => {
               type='number'
               id='pokedex'
               placeholder='N° Pokedex 🔍'
+              autoComplete='off'
             />
           </label>
         </form>
