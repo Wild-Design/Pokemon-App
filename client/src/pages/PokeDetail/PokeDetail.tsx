@@ -214,7 +214,10 @@ const PokeDetail: React.FC = () => {
       </div>
     </>
   ) : (
-    <img src={Loader} alt='Loader' />
+    <>
+      <img className={style.fondo} src={Fondo} alt='Fondo' />
+      <img className={style.loader} src={Loader} alt='Loader' />
+    </>
   );
 };
 
