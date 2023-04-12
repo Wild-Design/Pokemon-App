@@ -24,7 +24,12 @@ const Search = ({ labelName, buttonName, actionName }: Props) => {
     <div className={style.searchContainer}>
       <div className={style.input}>
         <label htmlFor='search'>{labelName}</label>
-        <input onChange={handleInputChange} id='search' type='search' />
+        <input
+          onChange={handleInputChange}
+          id='search'
+          type='search'
+          autoComplete='off'
+        />
       </div>
       <button onClick={handleDispatch}>{buttonName}</button>
     </div>

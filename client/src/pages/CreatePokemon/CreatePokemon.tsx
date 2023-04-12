@@ -262,6 +262,7 @@ const CreatePokemon: React.FC = () => {
                 name='nombre'
                 id='nombre'
                 placeholder='Escribe aquí...'
+                autoComplete='off'
               />
               <p className={error.nombre && style.error}>{error.nombre}</p>
             </label>
@@ -274,6 +275,7 @@ const CreatePokemon: React.FC = () => {
                 name='imagen'
                 id='imagen'
                 placeholder='Introduce una url valida aqui...'
+                autoComplete='off'
               />
               <p className={error.imagen && style.error}>{error.imagen}</p>
             </label>
