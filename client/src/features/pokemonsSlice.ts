@@ -92,6 +92,10 @@ export const pokemonsSlice = createSlice({
         }
       }
     },
+    cleanPokemons: (state) => {
+      state.allPokemons = [];
+      state.allPokemonsCopy = [];
+    },
   },
 });
 
@@ -159,6 +163,7 @@ export const {
   allTypes,
   orderPokemons,
   filterPokemons,
+  cleanPokemons,
 } = pokemonsSlice.actions;
 
 export default pokemonsSlice.reducer;

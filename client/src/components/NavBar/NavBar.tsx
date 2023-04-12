@@ -4,6 +4,7 @@ import {
   getAllTypes,
   orderPokemons,
   filterPokemons,
+  cleanPokemons,
 } from "../../features/pokemonsSlice";
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
 import { useEffect } from "react";
@@ -28,6 +29,10 @@ const NavBar = () => {
     const value = event.target.value;
     dispatch(filterPokemons(value));
   };
+  const cleanState = () => {
+    dispatch(cleanPokemons());
+    dispatch(getAllPokemons());
+  };
 
   return (
     <nav className={style.nav}>
@@ -41,12 +46,7 @@ const NavBar = () => {
         </Link>
       </div>
       <div className={style.secondContainer}>
-        <button
-          className={style.reset}
-          onClick={() => {
-            dispatch(getAllPokemons());
-          }}
-        >
+        <button className={style.reset} onClick={cleanState}>
           Resetear <br />
         </button>
         <div className={style.searchContainer}>
@@ -86,7 +86,7 @@ const NavBar = () => {
             </select>
           </div>
           <div className={style.filter}>
-            <label htmlFor='filter'>Filtrar por:</label>
+            <label htmlFor='filter'>Más filtros:</label>
             <select
               onChange={(event) => {
                 handleFilter(event);
