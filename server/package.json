@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start": "concurrently \"npx tsc --watch\" \dist/index.js\""
+    "start": "concurrently \"npx tsc --watch\"dist/index.js\""
   },
   "dependencies": {
     "@types/express": "^4.17.17",
