@@ -4,6 +4,9 @@ import Home from "./pages/Home/Home";
 import { Routes, Route } from "react-router-dom";
 import CreatePokemon from "./pages/CreatePokemon/CreatePokemon";
 import PokeDetail from "./pages/PokeDetail/PokeDetail";
+import axios from "axios";
+// axios.defaults.baseURL = "http://localhost:3001";
+axios.defaults.baseURL = "https://pokemon-app-production-6ac2.up.railway.app/";
 
 const App: React.FC = () => {
   return (

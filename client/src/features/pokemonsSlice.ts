@@ -105,7 +105,7 @@ export const pokemonsSlice = createSlice({
 export const getAllPokemons = () => {
   return async (dispatch: any) => {
     try {
-      const FETCH = await axios.get(`http://localhost:3001/pokemons`);
+      const FETCH = await axios.get(`/pokemons`);
       const RESPONSE = FETCH.data;
       dispatch(getPokemons(RESPONSE));
     } catch (error: any) {
@@ -119,9 +119,7 @@ export const search = (name?: string) => {
       if (!name) {
         Swal.fire("Introduce un nombre");
       } else {
-        const FETCH = await axios.get(
-          `http://localhost:3001/pokemons?name=${name}`
-        );
+        const FETCH = await axios.get(`/pokemons?name=${name}`);
         const DATA = FETCH.data;
         if (DATA.length) {
           dispatch(pokeSearch(DATA));
@@ -139,9 +137,7 @@ export const search = (name?: string) => {
 export const pokemonDetail = (value: any) => {
   return async (dispatch: any) => {
     try {
-      const GET_DETAIL = await axios.get(
-        `http://localhost:3001/pokemons/${value}`
-      );
+      const GET_DETAIL = await axios.get(`/pokemons/${value}`);
       const DETAIL = GET_DETAIL.data;
       dispatch(getPokemonDetail(DETAIL));
     } catch (error: any) {
@@ -153,7 +149,7 @@ export const pokemonDetail = (value: any) => {
 export const getAllTypes = () => {
   return async (dispatch: any) => {
     try {
-      const GET_TYPES = await axios.get("http://localhost:3001/types");
+      const GET_TYPES = await axios.get("/types");
       const TYPES = GET_TYPES.data;
       const arr: string[] = [];
       for (let i: number = 0; i < TYPES.length - 2; i++) {
@@ -169,7 +165,7 @@ export const getAllTypes = () => {
 export const createPokemon = (body: ModelCreate) => {
   return async () => {
     try {
-      await axios.post("http://localhost:3001/pokemons", body);
+      await axios.post("/pokemons", body);
       return true;
     } catch (error: any) {
       console.log(error.message);
