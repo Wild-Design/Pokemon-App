@@ -1,6 +1,5 @@
-{
-  "scripts": {
-    "concurrently \"npx tsc --watch\" \"nodemon -q dist/index.js\"",
+{"scripts": {
+    "start": "concurrently \"npx tsc --watch\" \"nodemon -q dist/index.js\"",
     "build": "tsc"
   },
   "dependencies": {
