@@ -1,4 +1,5 @@
-{"scripts": {
+{
+  "scripts": {
     "start": "concurrently \"npx tsc --watch\" \"nodemon -q dist/index.js\"",
     "build": "tsc"
   },
