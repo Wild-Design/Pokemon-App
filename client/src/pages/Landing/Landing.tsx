@@ -8,7 +8,7 @@ import Logo from "../../assets/logo.png";
 //Pimero llamo a los tipos por las dudas que no estén en la bd y asi me prevengo de problemas
 const getAllTypes = async () => {
   try {
-    await axios.get("http://localhost:3001/types");
+    await axios.get("/types");
   } catch (error: any) {
     console.log({ LandingPage: error.message });
   }
