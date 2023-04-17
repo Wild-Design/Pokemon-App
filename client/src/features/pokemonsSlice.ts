@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 // import type { PayloadAction } from "@reduxjs/toolkit";
 // import type { RootState } from "../app/store";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 interface ModelCreate {
   nombre: string;
@@ -31,7 +32,7 @@ export const pokemonsSlice = createSlice({
       state.allPokemons = PayloadAction.payload;
       state.allPokemonsCopy = PayloadAction.payload;
     },
-    pokeName: (state, PayloadAction) => {
+    pokeSearch: (state, PayloadAction) => {
       state.allPokemons = PayloadAction.payload;
     },
     getPokemonDetail: (state, PayloadAction) => {
@@ -76,7 +77,9 @@ export const pokemonsSlice = createSlice({
           const filter: any = state.allPokemonsCopy.filter(
             (pokemons: any) => pokemons.db
           );
-          state.allPokemons = filter;
+          !filter.length
+            ? Swal.fire("Aun no Hay bichos creados 🤣")
+            : (state.allPokemons = filter);
         } else if (PayloadAction.payload === "API") {
           const filter: any = state.allPokemonsCopy.filter(
             (pokemons: any) => !pokemons.db
@@ -99,18 +102,36 @@ export const pokemonsSlice = createSlice({
   },
 });
 
-export const getAllPokemons = (name?: string) => {
+export const getAllPokemons = () => {
   return async (dispatch: any) => {
     try {
-      const FETCH = name
-        ? await axios.get(`http://localhost:3001/pokemons?name=${name}`)
-        : await axios.get(`http://localhost:3001/pokemons`);
+      const FETCH = await axios.get(`http://localhost:3001/pokemons`);
       const RESPONSE = FETCH.data;
       dispatch(getPokemons(RESPONSE));
-      return true;
     } catch (error: any) {
       console.log(error.message);
-      return false;
+    }
+  };
+};
+export const search = (name?: string) => {
+  return async (dispatch: any) => {
+    try {
+      if (!name) {
+        Swal.fire("Introduce un nombre");
+      } else {
+        const FETCH = await axios.get(
+          `http://localhost:3001/pokemons?name=${name}`
+        );
+        const DATA = FETCH.data;
+        if (DATA.length) {
+          dispatch(pokeSearch(DATA));
+        } else {
+          Swal.fire("Pokémon no encontrado 🥶");
+        }
+      }
+    } catch (error: any) {
+      console.log(error.message);
+      Swal.fire("Error en el servidor 😔, vuelve a intentar ");
     }
   };
 };
@@ -159,6 +180,7 @@ export const createPokemon = (body: ModelCreate) => {
 
 export const {
   getPokemons,
+  pokeSearch,
   getPokemonDetail,
   allTypes,
   orderPokemons,

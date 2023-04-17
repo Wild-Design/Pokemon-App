@@ -141,7 +141,13 @@
 .dualContainer p {
   margin-bottom: 10px;
 }
+.preview {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .preview img {
+  text-align: center;
   max-width: 180px;
   max-height: 180px;
 }

@@ -1,7 +1,7 @@
 import style from "./CreatePokemon.module.css";
 import allTypes from "../../utils/imgTypes";
 import { useState } from "react";
-import { createPokemon } from "../../features/pokemonsSlice";
+import { createPokemon, getAllPokemons } from "../../features/pokemonsSlice";
 import { useAppDispatch } from "../../app/hooks";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -72,8 +72,8 @@ const CreatePokemon: React.FC = () => {
     if (PROPERTY === "nombre") {
       !body.nombre.length
         ? setError({ ...error, nombre: "Falta completar" })
-        : body.nombre.length >= 21
-        ? setError({ ...error, nombre: "Maximo 20 caracteres" })
+        : body.nombre.length >= 15
+        ? setError({ ...error, nombre: "Maximo 15 caracteres" })
         : setError({ ...error, nombre: "" });
     }
     if (PROPERTY === "imagen") {
@@ -201,6 +201,7 @@ const CreatePokemon: React.FC = () => {
         }).then((result) => {
           if (result.dismiss === Swal.DismissReason.timer) {
             navigate("/home");
+            dispatch(getAllPokemons());
           }
         });
       } else {
