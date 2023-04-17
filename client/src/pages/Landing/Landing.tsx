@@ -8,7 +8,7 @@ import Logo from "../../assets/logo.png";
 //Pimero llamo a los tipos por las dudas que no estén en la bd y asi me prevengo de problemas
 const getAllTypes = async () => {
   try {
-    await axios.get("/types");
+    await axios.get("https://pokemon-app-production-6ac2.up.railway.app/types");
   } catch (error: any) {
     console.log({ LandingPage: error.message });
   }
