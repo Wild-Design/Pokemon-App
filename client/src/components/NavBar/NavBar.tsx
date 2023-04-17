@@ -1,6 +1,7 @@
 import Search from "../Search/Search";
 import {
   getAllPokemons,
+  search,
   getAllTypes,
   orderPokemons,
   filterPokemons,
@@ -53,7 +54,7 @@ const NavBar = () => {
           <Search
             labelName={"Busca un pokemon"}
             buttonName={"🔍"}
-            actionName={getAllPokemons}
+            actionName={search}
           />
         </div>
         <div className={style.filtersContainer}>
