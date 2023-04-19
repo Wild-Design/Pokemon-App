@@ -1,4 +1,4 @@
-import express, { Express, Request, Response } from "express";
+import express, { Express } from "express";
 import db from "./src/db"; //importo la base de datos junto con los modelos (Pokemon y Tipo)
 const { DATA_BASE } = db;
 const morgan = require("morgan");
